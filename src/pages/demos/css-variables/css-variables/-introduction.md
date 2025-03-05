@@ -2,7 +2,7 @@
 published: true
 date: 2025-03-04
 series: css-variables
-index: 1
+index: "1"
 title: Introduction
 ---
 # How it all began
@@ -16,8 +16,8 @@ Just some text.
 *   Item Three
     
 
-```
+```css
 body {
-   background: var(--color-surface-100);
-}
+   background: hotpink;
+} 
 ```
