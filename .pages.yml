@@ -7,7 +7,6 @@ content:
     type: collection
     path: 'src/pages/demos'
     filename: '{fields.series}/{fields.index}-{fields.title}.md'
-    subfolders: false
     view:
       fields: [ title, published, series, index, date ]
       sort: [ index, title ]
