@@ -15,7 +15,7 @@ content:
       - { name: published, label: Published, type: boolean, default: true }
       - { name: date, label: Date, type: date }
       - { name: series, label: Series, type: string }
-      - { name: index, label: Index, type: number }
+      - { name: chapter, label: Chapter, type: number }
       - { name: title, label: Title, type: string }
       - { name: body, label: Body, type: rich-text }
   - name: site
@@ -26,4 +26,4 @@ content:
       - { name: title, label: Website title, type: string }
       - { name: description, label: Website description, type: string }
       - { name: url, label: Website URL, type: string }
-      - { name: cover, label: Preview image, type: image, description: Image used in the social preview on social networks (e.g. Facebook, Twitter...) }
+      - { name: cover, label: Preview image, type: image, description: 'Image used in the social preview on social networks (e.g. Facebook, Twitter...)' }
