@@ -1,0 +1,156 @@
+@use "@styles/abstracts/mixins/breakpoints" as mq;
+
+:is(.sheet__overlay, .sheet__content) {
+	background-color: hsl(var(--color-background));
+	box-shadow: 0 var(--shim-3) var(--shim-4) hsl(var(--color-background) / 0.1);
+	gap: var(--size-1);
+	padding: var(--size-2);
+	position: fixed;
+	transition: opacity var(--duration-fast) var(--ease-in-out);
+	z-index: var(-z-layer);
+
+	&[data-state="open"] {
+		animation-duration: var(--duration-moderate);
+		animation-name: animate-in;
+	}
+
+	&[data-state="closed"] {
+		animation-duration: var(--duration-fast);
+		animation-name: animate-out;
+	}
+}
+
+.sheet__top {
+	border-block-end: var(--border-size-1) solid hsl(var(--color-border));
+	inset-block-start: 0;
+	inset-inline-start: 0;
+	position: fixed;
+
+	&[data-state="closed"] {
+		animation-duration: var(--duration-fast);
+		animation-name: slide-out-to-top;
+	}
+
+	&[data-state="open"] {
+		animation-duration: var(--duration-fast);
+		animation-name: slide-in-from-top;
+	}
+}
+
+.sheet__bottom {
+	border-block-start: var(--border-size-1) solid hsl(var(--color-border));
+	inset-block-end: 0;
+	inset-inline-start: 0;
+	position: fixed;
+
+	&[data-state="closed"] {
+		animation-duration: var(--duration-fast);
+		animation-name: slide-out-to-bottom;
+	}
+
+	&[data-state="open"] {
+		animation-duration: var(--duration-fast);
+		animation-name: slide-in-from-bottom;
+	}
+}
+
+.sheet__left {
+	block-size: 100vb;
+	border-inline-end: var(--border-size-1) solid hsl(var(--color-border));
+	inline-size: 75%;
+	inset-block-start: 0;
+	inset-inline-start: 0;
+	max-inline-size: var(--breakpoint-micro);
+	position: fixed;
+
+	&[data-state="closed"] {
+		animation-duration: var(--duration-fast);
+		animation-name: slide-out-to-left;
+	}
+
+	&[data-state="open"] {
+		animation-duration: var(--duration-fast);
+		animation-name: slide-in-from-left;
+	}
+}
+
+.sheet__right {
+	block-size: 100vb;
+	border-inline-start: var(--border-size-1) solid hsl(var(--color-border));
+	inline-size: 75%;
+	inset-block-start: 0;
+	inset-inline-end: 0;
+	max-inline-size: var(--breakpoint-micro);
+	position: fixed;
+
+	&[data-state="closed"] {
+		animation-duration: var(--duration-fast);
+		animation-name: slide-out-to-right;
+	}
+
+	&[data-state="open"] {
+		animation-duration: var(--duration-fast);
+		animation-name: slide-in-from-right;
+	}
+}
+
+.sheet__content-close {
+	border-radius: var(--radius-2);
+	inset-block-start: var(--size-1);
+	inset-inline-end: var(--size-1);
+	opacity: 0.7;
+	outline: none;
+	position: absolute;
+	transition: opacity var(--duration-fast);
+
+	&:hover {
+		opacity: 1;
+	}
+
+	&:focus {
+		box-shadow:
+         0 0 0 var(--shim-2) hsl(var(--color-ring)),
+			0 0 0 var(--shim-3) hsl(var(--color-ring) / 0.5);
+	}
+
+	&:disabled {
+		pointer-events: none;
+	}
+
+	&[data-state="open"] {
+		background-color: hsl(var(--color-secondary-color));
+	}
+}
+
+.sheet__header {
+	display: flex;
+	flex-direction: column;
+	gap: var(--shim-5);
+	text-align: center;
+
+   @include mq.breakpoint(xs) {
+		text-align: start;
+	}
+}
+
+.sheet__footer {
+	display: flex;
+	flex-direction: column-reverse;
+
+   @include mq.breakpoint(xs) {
+      flex-direction: row;
+      gap: var(--shim-5);
+      justify-content: flex-end;
+   }
+}
+
+.sheet__title {
+	color: hsl(var(--color-foreground));
+	font-size: var(--font-size-xl);
+	font-weight: var(--font-weight-semibold);
+}
+
+.sheet__description {
+	color: hsl(var(--color-muted-foreground));
+	font-size: var(--font-size-sm);
+}

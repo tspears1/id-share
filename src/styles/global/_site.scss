@@ -1,0 +1,30 @@
+.site-inner {
+  --sidebar-block-size: calc(100svb - var(--site-header-block-size, 0px));
+  --sidebar-wrapper-position: absolute;
+
+  display: grid;
+  grid-template-columns: auto 1fr;
+  min-inline-size: 100vi;
+  position: relative;
+}
+
+.site-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr;
+  min-inline-size: 100%;
+}
+
+.site-header {
+  align-items: center;
+  background: hsl(var(--color-surface-0));
+  border-block-end: var(--border-size-1) solid hsl(var(--color-border));
+  display: grid;
+  gap: var(--shim-5);
+  grid-auto-flow: column;
+  grid-template-columns: 1fr max-content;
+  min-block-size: var(--size-fluid-6);
+  justify-content: space-between;
+  padding-block: var(--size-2);
+  padding-inline: var(--sidebar-scale-size-1);
+}

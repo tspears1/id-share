@@ -1,0 +1,28 @@
+.separator {
+	background-color: hsl(var(--color-border));
+	flex-shrink: 0;
+	position: relative;
+}
+
+.separator--horizontal {
+	block-size: var(--shim-1);
+	inline-size: 100%;
+}
+
+.separator--vertical {
+	block-size: 100%;
+	inline-size: var(--shim-1);
+}
+
+.separator__text {
+	background-color: hsl(var(--color-background));
+	block-size: max-content;
+	border-radius: var(--radius-round);
+	color: hsl(var(--color-foreground));
+	font-size: var(--font-size-sm);
+	inline-size: max-content;
+	inset: 0;
+	margin: auto;
+	padding: var(--shim-3) var(--shim-5);
+	position: absolute;
+}

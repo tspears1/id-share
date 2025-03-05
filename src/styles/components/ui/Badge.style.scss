@@ -1,0 +1,72 @@
+.badge {
+	align-items: center;
+	background-color: var(--badge-background-color, hsl(var(--color-foreground)));
+	border-radius: var(--badge-border-radius, var(--radius-round));
+	border: var(--badge-border-size, var(--border-size-1)) solid var(--badge-border-color, transparent);
+	color: var(--badge-color, hsl(var(--color-background)));
+	display: inline-flex;
+	font-size: var(--font-size-xs);
+	font-weight: var(--font-weight-semibold);
+	inline-size: max-content;
+	outline: none;
+	padding-block: var(--badge-padding-block, var(--shim-2));
+   padding-inline: var(--badge-padding-inline, var(--size-2));
+
+	&:hover {
+		--badge-background-color: hsl(var(--color-foreground) / 0.8);
+	}
+
+	&[data-variant="secondary"] {
+      --badge-background-color: hsl(var(--color-secondary));
+      --badge-color: hsl(var(--color-secondary-foreground));
+	}
+
+
+	&[data-variant="destructive"] {
+		--badge-background-color: hsl(var(--color-destructive) / 0.1);
+		--badge-border-color: hsl(var(--color-destructive) / 0.8);
+		--badge-color: hsl(var(--color-destructive-foreground));
+	}
+
+	&[data-variant="warning"] {
+		--badge-background-color: hsl(var(--color-warning) / 0.1);
+		--badge-border-color: hsl(var(--color-warning) / 0.8);
+		--badge-color: hsl(var(--color-warning-foreground));
+	}
+
+	&[data-variant="success"] {
+		--badge-background-color: hsl(var(--color-success) / 0.1);
+		--badge-border-color: hsl(var(--color-success) / 0.8);
+		--badge-color: hsl(var(--color-success-foreground));
+	}
+
+	&[data-variant="highlight"] {
+		--badge-background-color: hsl(var(--color-highlight) / 0.1);
+		--badge-border-color: hsl(var(--color-highlight) / 0.8);
+		--badge-color: hsl(var(--color-highlight-foreground));
+	}
+
+	&[data-variant="neutral"] {
+		--badge-background-color: hsl(var(--color-neutral) / 0.1);
+		--badge-border-color: hsl(var(--color-neutral) / 0.8);
+		--badge-color: hsl(var(--color-neutral-foreground));
+	}
+
+	&[data-variant="info"] {
+		--badge-background-color: hsl(var(--color-info) / 0.1);
+		--badge-border-color: hsl(var(--color-info) / 0.8);
+		--badge-color: hsl(var(--color-info-foreground));
+	}
+
+
+	&[data-variant="outline"] {
+      --badge-background-color: transparent;
+      --badge-border-color: hsl(var(--color-border) / 0.8);
+      --badge-color: hsl(var(--color-foreground));
+
+      &:hover {
+         --badge-background-color: hsl(var(--color-foreground)) / 0.1;
+      }
+	}
+
+}

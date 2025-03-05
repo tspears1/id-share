@@ -1,0 +1,106 @@
+//======================================================================
+//====[ @component ThemeToggle ]========================================
+//====[ based on https://web.dev/building-a-theme-switch-component/ ]===
+//======================================================================
+
+/* .theme-toggle ----------------------------------------------------- */
+.theme-toggle {
+	--button-background-color--hover: hsl(var(--color-sidebar-primary) / 0.1);
+  	--button-border-color--hover: hsl(var(--color-sidebar-primary) / 0.8);
+	--icon-fill: var(--_button-icon-color);
+	--icon-fill-hover: var(--_button-icon-color--hover);
+	--toggle-size: var(--size-2);
+
+	-webkit-tap-highlight-color: transparent;
+	cursor: pointer;
+	outline-offset: var(--shim-4);
+	touch-action: manipulation;
+
+	& > svg {
+		block-size: var(--toggle-size);
+		filter: none;
+		inline-size: var(--toggle-size);
+		stroke-linecap: round;
+	}
+}
+
+/* .theme-toggle__icon ------------------------------------------------ */
+.sun-and-moon {
+	& > :is(.moon, .sun, .sun-beams) {
+		transform-origin: center center;
+	}
+
+	& > :is(.moon, .sun) {
+		fill: var(--icon-fill);
+
+		.theme-toggle:is(:hover, :focus-visible) > & {
+			fill: var(--icon-fill-hover);
+		}
+	}
+
+	& > .sun-beams {
+		stroke: var(--icon-fill);
+		stroke-width: var(--shim-2);
+
+		.theme-toggle:is(:hover, :focus-visible) & {
+			stroke: var(--icon-fill-hover);
+		}
+	}
+
+	[color-scheme="dark"] & {
+		& > .sun {
+			scale: 1.75;
+		}
+
+		& > .sun-beams {
+			opacity: 0;
+		}
+
+		& > .moon > circle {
+			translate: -7px;
+
+			@supports (cx: 1) {
+				translate: 0;
+				cx: 17;
+			}
+		}
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		& > .sun {
+			transition: scale var(--duration-moderate) var(--ease-elastic-3);
+		}
+
+		& > .sun-beams {
+			transition:
+            rotate var(--duration-moderate) var(--ease-elastic-4),
+				opacity var(--duration-moderate) var(--ease-3);
+		}
+
+		& .moon > circle {
+			transition: translate calc(var(--duration-moderate) / 2) var(--ease-out-5);
+
+			@supports (cx: 1) {
+				transition: cx calc(var(--duration-moderate) / 2) var(--ease-out-5);
+			}
+		}
+
+		[color-scheme="dark"] & {
+			& > .sun {
+				scale: 1.75;
+				transition-timing-function: var(--ease-3);
+				transition-duration: calc(var(--duration-moderate) / 2);
+			}
+
+			& > .sun-beams {
+				rotate: z -25deg;
+				transition-duration: var(--duration-quick);
+			}
+
+			& > .moon > circle {
+				transition-delay: calc(var(--duration-moderate) / 2);
+				transition-duration: var(--duration-moderate);
+			}
+		}
+	}
+}

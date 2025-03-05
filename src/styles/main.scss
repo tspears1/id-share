@@ -1,0 +1,19 @@
+@use 'sass:meta';
+
+@layer base, global, components, theme;
+
+@layer base {
+   @include meta.load-css('@styles/base');
+}
+
+@layer global {
+   @include meta.load-css('@styles/global');
+}
+
+@layer utils {
+   @include meta.load-css('@styles/utils');
+}
+
+@layer components {
+   @include meta.load-css('@styles/components');
+}

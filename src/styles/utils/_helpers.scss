@@ -1,0 +1,31 @@
+@use '../abstracts/mixins/breakpoints' as mq;
+
+.focus-visible-ring {
+	outline: none;
+	outline-color: hsl(var(--color-sidebar-ring));
+
+	&:focus-visible {
+		outline-width: var(--shim-5);
+	}
+}
+
+.mobile-surface-expand {
+	&::after {
+		content: "";
+		position: absolute;
+		inset: calc(var(--shim-5) * -1);
+
+		@include mq.breakpoint(sm) {
+			display: none;
+		}
+	}
+}
+
+.pseudo-link {
+	&::after {
+		content: '';
+		inset: var(--pseudo-link-inset, 0);
+		position: absolute;
+		z-index: var(--pseudo-link-z-index, 1);
+	}
+}

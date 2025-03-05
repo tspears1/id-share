@@ -1,0 +1,213 @@
+@mixin theme-light {
+   color-scheme: light;
+
+   --color-surface-0:                      var(--color-slate-50-hsl);
+   --color-surface-1:                      var(--color-slate-100-hsl);
+   --color-surface-2:                      var(--color-slate-200-hsl);
+   --color-surface-3:                      var(--color-slate-300-hsl);
+   --color-surface-4:                      var(--color-slate-400-hsl);
+
+   --color-text-0:                         var(--color-slate-950-hsl);
+   --color-text-1:                         var(--color-slate-950-hsl);
+   --color-text-2:                         var(--color-slate-900-hsl);
+   --color-text-3:                         var(--color-slate-800-hsl);
+
+   --color-background:                     var(--color-surface-0);
+   --color-foreground:                     var(--color-text-1);
+
+   --color-card:                           var(--color-surface-0);
+   --color-card-foreground:                var(--color-text-1);
+
+   --color-popover:                        var(--color-surface-0);
+   --color-popover-foreground:             var(--color-text-1);
+
+   --color-primary:                        var(--color-slate-900-hsl);
+   --color-primary-foreground:             var(--color-slate-50-hsl);
+
+   --color-secondary:                      var(--color-slate-800-hsl);
+   --color-secondary-foreground:           var(--color-slate-100-hsl);
+
+   --color-muted:                          var(--color-slate-700-hsl);
+   --color-muted-foreground:               var(--color-slate-500-hsl);
+
+   --color-accent:                         var(--color-blue-800-hsl);
+   --color-accent-foreground:              var(--color-blue-100-hsl);
+
+   --color-border:                         var(--color-surface-2);
+   --color-input:                          var(--color-surface-2);
+   --color-ring:                           var(--color-slate-400-hsl);
+   --color-shadow:                         var(--color-slate-950-hsl);
+
+   --color-success:                        var(--color-emerald-300-hsl);
+   --color-success-foreground:             var(--color-emerald-600-hsl);
+   --color-warning:                        var(--color-amber-300-hsl);
+   --color-warning-foreground:             var(--color-amber-700-hsl);
+   --color-destructive:                    var(--color-red-600-hsl);
+   --color-destructive-foreground:         var(--color-red-800-hsl);
+   --color-highlight:                      var(--color-purple-300-hsl);
+   --color-highlight-foreground:           var(--color-purple-700-hsl);
+   --color-info:                           var(--color-sky-300-hsl);
+   --color-info-foreground:                var(--color-sky-600-hsl);
+   --color-neutral:                        var(--color-neutral-400-hsl);
+   --color-neutral-foreground:             var(--color-neutral-800-hsl);
+
+   --color-sidebar-background:             var(--color-slate-50-hsl);
+   --color-sidebar-foreground:             var(--color-slate-700-hsl);
+   --color-sidebar-primary:                var(--color-blue-500-hsl);
+   --color-sidebar-primary-foreground:     var(--color-slate-100-hsl);
+   --color-sidebar-accent:                 var(--color-slate-100-hsl);
+   --color-sidebar-accent-foreground:      var(--color-slate-900-hsl);
+   --color-sidebar-border:                 var(--color-gray-200-hsl);
+   --color-sidebar-ring:                   var(--color-slate-950-hsl);
+
+   --color-syntax-plain:                   var(--color-cyan-600-hsl);
+   --color-syntax-comment:                 var(--color-teal-400-hsl);
+   --color-syntax-keyword:                 var(--color-pink-500-hsl);
+   --color-syntax-definition:              var(--color-pink-600-hsl);
+   --color-syntax-punctuation:             var(--color-slate-600-hsl);
+   --color-syntax-property:                var(--color-text-2);
+   --color-syntax-tag:                     var(--color-emerald-400-hsl);
+   --color-syntax-static:                  var(--color-violet-600-hsl);
+   --color-syntax-string:                  var(--color-amber-600-hsl);
+}
+
+@mixin theme-dark {
+   color-scheme: dark;
+
+   --color-surface-0:                      var(--color-slate-950-hsl);
+   --color-surface-1:                      var(--color-slate-900-hsl);
+   --color-surface-2:                      var(--color-slate-800-hsl);
+   --color-surface-3:                      var(--color-slate-700-hsl);
+   --color-surface-4:                      var(--color-slate-600-hsl);
+
+   --color-text-0:                         var(--color-slate-50-hsl);
+   --color-text-1:                         var(--color-slate-50-hsl);
+   --color-text-2:                         var(--color-slate-100-hsl);
+   --color-text-3:                         var(--color-slate-200-hsl);
+
+   --color-background:                     var(--color-surface-0);
+   --color-foreground:                     var(--color-text-1);
+
+   --color-card:                           var(--color-surface-0);
+   --color-card-foreground:                var(--color-text-1);
+
+   --color-popover:                        var(--color-surface-0);
+   --color-popover-foreground:             var(--color-text-1);
+
+   --color-primary:                        var(--color-slate-50-hsl);
+   --color-primary-foreground:             var(--color-slate-900-hsl);
+
+   --color-secondary:                      var(--color-slate-100-hsl);
+   --color-secondary-foreground:           var(--color-slate-800-hsl);
+
+   --color-muted:                          var(--color-slate-200-hsl);
+   --color-muted-foreground:               var(--color-slate-400-hsl);
+
+   --color-accent:                         var(--color-pink-400-hsl);
+   --color-accent-foreground:              var(--color-pink-700-hsl);
+
+   --color-border:                         var(--color-surface-2);
+   --color-input:                          var(--color-surface-2);
+   --color-ring:                           var(--color-slate-600-hsl);
+   --color-shadow:                         var(--color-slate-600-hsl);
+
+   --color-success:                        var(--color-emerald-500-hsl);
+   --color-success-foreground:             var(--color-emerald-200-hsl);
+   --color-warning:                        var(--color-amber-700-hsl);
+   --color-warning-foreground:             var(--color-amber-500-hsl);
+   --color-destructive:                    var(--color-red-800-hsl);
+   --color-destructive-foreground:         var(--color-red-600-hsl);
+   --color-highlight:                      var(--color-purple-700-hsl);
+   --color-highlight-foreground:           var(--color-purple-300-hsl);
+   --color-info:                           var(--color-sky-600-hsl);
+   --color-info-foreground:                var(--color-sky-300-hsl);
+   --color-neutral:                        var(--color-neutral-400-hsl);
+   --color-neutral-foreground:             var(--color-neutral-100-hsl);
+
+   --color-sidebar-background:             var(--color-slate-950-hsl);
+   --color-sidebar-foreground:             var(--color-slate-50-hsl);
+   --color-sidebar-primary:                var(--color-pink-600-hsl);
+   --color-sidebar-primary-foreground:     var(--color-slate-50-hsl);
+   --color-sidebar-accent:                 var(--color-slate-900-hsl);
+   --color-sidebar-accent-foreground:      var(--color-slate-100-hsl);
+   --color-sidebar-border:                 var(--color-slate-300-hsl);
+   --color-sidebar-ring:                   var(--color-slate-400-hsl);
+
+   --color-syntax-plain:                   var(--color-text-3);
+   --color-syntax-comment:                 var(--color-teal-400-hsl);
+   --color-syntax-keyword:                 var(--color-pink-500-hsl);
+   --color-syntax-definition:              var(--color-pink-400-hsl);
+   --color-syntax-punctuation:             var(--color-orange-300-hsl);
+   --color-syntax-property:                var(--color-text-2);
+   --color-syntax-tag:                     var(--color-emerald-400-hsl);
+   --color-syntax-static:                  var(--color-cyan-400-hsl);
+   --color-syntax-string:                  var(--color-amber-400-hsl);
+}
+
+// "plain": "hsl(var(--color-text-0))",
+// "comment": {
+//    "color": "#1ac5b0",
+//    "fontStyle": "italic"
+// },
+// "keyword": {
+//    color: "#fdf500",
+// },
+// "tag": {
+//    color: "#ffc600",
+// },
+// "punctuation": {
+//    color: "#afd7fa",
+// },
+// "definition": {
+//    color: "#ffc600",
+// },
+// "property": {
+//    color: "#fdf500",
+//    fontStyle: 'italic',
+//    fontWeight: 'bold',
+// },
+// "static": {
+//    color: "#e455ae",
+//    fontStyle: 'normal'
+// },
+// "string": {
+//    color: "#37ebf3",
+// }
+
+// midnightblue and honeydew
+
+@media not (prefers-color-scheme: dark) {
+   :root {
+      @include theme-light;
+   }
+}
+
+@media (prefers-color-scheme: dark) {
+   :root {
+      @include theme-dark;
+   }
+}
+
+:is([data-theme='light'], [color-scheme='light']) {
+   @include theme-light;
+}
+
+:is([data-theme='dark'], [color-scheme='dark']) {
+   @include theme-dark;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+   color: var(--color-foreground);
+}
+
+span {
+   color: var(--color-foreground);
+}
+
+.text-destructuve {
+   color: var(--color-destructive-foreground);
+}
+
+.text-muted-foreground {
+   color: var(--color-muted-foreground);
+}

@@ -1,0 +1,36 @@
+.tooltip__content {
+	animation-duration: var(--duration-fast), var(--duration-fast), var(--duration-fast);
+	animation-name: animate-in, fade-in-0, zoom-in-95;
+	animation-timing-function: var(--ease-in-out), var(--ease-in-out), var(--ease-in-out);
+	background-color: hsl(var(--color-popover));
+	border-radius: var(--radius-3);
+	border: var(--shim-1) solid hsl(var(--color-border));
+	box-shadow: 0 var(--shim-2) var(--shim-3) hsl(var(--color-background) / 0.5);
+	color: hsl(var(--color-popover-foreground));
+	font-size: var(--font-size-sm);
+	overflow: hidden;
+	padding: var(--shim-4) var(--shim-7);
+	z-index: var(--z-tooltip);
+
+   &[data-state="closed"] {
+      animation-duration: var(--duration-fast), var(--duration-fast), var(--duration-fast);
+      animation-name: animate-out, fade-out-0, zoom-out-95;
+      animation-timing-function: var(--ease-in-out), var(--ease-in-out), var(--ease-in-out);
+   }
+
+   &:is([data-side="bottom"], [data-side="block-end"]) {
+      animation-name: slide-in-from-top-2;
+   }
+
+   &:is([data-side="left"], [data-side="inline-start"]) {
+      animation-name: slide-in-from-right-2;
+   }
+
+   &:is([data-side="right"], [data-side="inline-end"]) {
+      animation-name: slide-in-from-left-2;
+   }
+
+   &:is([data-side="top"], [data-side="block-start"]) {
+      animation-name: slide-in-from-bottom-2;
+   }
+}

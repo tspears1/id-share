@@ -1,0 +1,19 @@
+@use 'sass:meta';
+@layer ui, atoms, molecules, organisms;
+
+@layer ui {
+   @layer alert { @include meta.load-css('@styles/components/ui/Alert.style.scss'); }
+   @layer badge { @include meta.load-css('@styles/components/ui/Badge.style.scss'); }
+   @layer breadcrumbs { @include meta.load-css('@styles/components/ui/Breadcrumbs.style.scss'); }
+   @layer button { @include meta.load-css('@styles/components/ui/Button.style.scss'); }
+   @layer dropdownMenu { @include meta.load-css('@styles/components/ui/DropdownMenu.style.scss'); }
+   @layer separator { @include meta.load-css('@styles/components/ui/Separator.style.scss'); }
+   @layer sidebar { @include meta.load-css('@styles/components/ui/Sidebar.style.scss'); }
+   @layer skeleton { @include meta.load-css('@styles/components/ui/Skeleton.style.scss'); }
+   @layer theme-toggle { @include meta.load-css('@styles/components/ui/ThemeToggle.style.scss'); }
+   @layer tooltip { @include meta.load-css('@styles/components/ui/Tooltip.style.scss'); }
+}
+
+@layer molecules {
+   @layer codePreview { @include meta.load-css('@styles/components/molecules/CodePreview.style.scss'); }
+}

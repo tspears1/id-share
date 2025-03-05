@@ -1,0 +1,18 @@
+---
+import Layout from './Layout.astro';
+import Sidebar from '../components/organisms/Sidebar.astro';
+---
+<Layout>
+   <Sidebar />
+   <main>
+      <div>Toolbar with breadcrumbs: Demo / CSS Variables</div>
+      <slot />
+   </main>
+</Layout>
+
+<style>
+   main {
+      padding-block: var(--size-fluid-6);
+      padding-inline: var(--site-padding-inline);
+   }
+</style>

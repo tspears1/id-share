@@ -1,0 +1,10 @@
+@use '@styles/abstracts/mixins/fonts' as *;
+
+@include font-face('Silka', 'silka-thin', 'silka', 100, normal, ('woff2'));
+@include font-face('Silka', 'silka-extralight', 'silka', 200, normal, ('woff2'));
+@include font-face('Silka', 'silka-light', 'silka', 300, normal, ('woff2'));
+@include font-face('Silka', 'silka-regular', 'silka', 400, normal, ('woff2'));
+@include font-face('Silka', 'silka-medium', 'silka', 500, normal, ('woff2'));
+@include font-face('Silka', 'silka-semibold', 'silka', 600, normal, ('woff2'));
+@include font-face('Silka', 'silka-bold', 'silka', 700, normal, ('woff2'));
+@include font-face('Silka', 'silka-black', 'silka', 900, normal, ('woff2'));

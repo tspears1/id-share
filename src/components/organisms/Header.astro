@@ -1,0 +1,50 @@
+---
+import { Icon } from 'astro-icon/components';
+import { ThemeToggle } from '@components/ui/ThemeToggle/ThemeToggle.jsx';
+---
+<header>
+   <div class="brand">
+      <div class="logo">
+         <Icon name="ph:asterisk-bold" class="icon" size="1.2em"/>
+      </div>
+      <div class="text">
+         { 'ID://SHARE' }
+      </div>
+   </div>
+   <div class="actions">
+      <ThemeToggle client:load/>
+   </div>
+</header>
+
+<style>
+   header {
+      align-items: center;
+      border-block-end: var(--border-size-1) solid hsl(var(--color-accent));
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size-fluid-3);
+      justify-content: space-between;
+      padding-block: var(--size-fluid-3);
+      padding-inline: var(--site-padding-inline);
+   }
+
+   .brand {
+      align-items: center;
+      display: grid;
+      font-size: var(--font-size-2xl);
+      grid-template-columns: max-content 1fr;
+      gap: var(--size-fluid-1);
+   }
+
+   .text {
+      font-weight: var(--font-weight-black);
+   }
+
+   .logo {
+      display: grid;
+      font-weight: var(--font-weight-thin);
+      grid-auto-flow: column;
+      place-items: center;
+   }
+
+</style>
