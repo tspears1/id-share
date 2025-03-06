@@ -15,5 +15,5 @@
 }
 
 @layer molecules {
-   @layer codePreview { @include meta.load-css('@styles/components/molecules/CodePreview.style.scss'); }
+   @layer sandbox { @include meta.load-css('@styles/components/molecules/Sandbox.style.scss'); }
 }

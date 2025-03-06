@@ -4,7 +4,7 @@ import theme from './theme'
 const defaultOptions = {
    showConsoleButton: true,
    showInlineErrors: true,
-   showNavigator: true,
+   showNavigator: false,
    showLineNumbers: true,
    showTabs: true,
    editorHeight: "50vb",

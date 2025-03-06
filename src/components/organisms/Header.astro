@@ -8,7 +8,7 @@ import { ThemeToggle } from '@components/ui/ThemeToggle/ThemeToggle.jsx';
          <Icon name="ph:asterisk-bold" class="icon" size="1.2em"/>
       </div>
       <div class="text">
-         { 'ID://SHARE' }
+         <a href="/">{ 'ID://SHARE' }</a>
       </div>
    </div>
    <div class="actions">
@@ -30,14 +30,36 @@ import { ThemeToggle } from '@components/ui/ThemeToggle/ThemeToggle.jsx';
 
    .brand {
       align-items: center;
+      color: hsl(var(--color-text-0));
       display: grid;
       font-size: var(--font-size-2xl);
       grid-template-columns: max-content 1fr;
       gap: var(--size-fluid-1);
+      position: relative;
+      transition: color var(--duration-fast) var(--ease-out-3);
+
+      &:hover,
+      &:focus-within {
+         color: hsl(var(--color-syntax-string));
+      }
    }
 
    .text {
       font-weight: var(--font-weight-black);
+
+      a {
+
+         &:hover {
+            text-decoration: none;;
+         }
+
+         &::after {
+            content: '';
+            inset: 0;
+            position: absolute;
+            z-index: 1;
+         }
+      }
    }
 
    .logo {

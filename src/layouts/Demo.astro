@@ -1,11 +1,20 @@
 ---
 import Layout from './Layout.astro';
-import Sidebar from '../components/organisms/Sidebar.astro';
+import Breadcrumbs from '@components/molecules/Breadcrumbs.astro';
+
+import { getEntry } from 'astro:content';
+const { id } = Astro.params;
+const { data: { title, series, slug }} = await getEntry('demos', id);
+let crumbs = [{ label: 'Demos', url: '/demos' }];
+if (series) {
+   const seriesSlug = slug.split('/')[0];
+   crumbs = [...crumbs, { label: series, url: `/demos/${seriesSlug}` }];
+}
+crumbs = [...crumbs, { label: title, url: '' }];
 ---
 <Layout>
-   <Sidebar />
-   <main>
-      <div>Toolbar with breadcrumbs: Demo / CSS Variables</div>
+   <main class="container container--grid">
+      <Breadcrumbs items={crumbs} />
       <slot />
    </main>
 </Layout>

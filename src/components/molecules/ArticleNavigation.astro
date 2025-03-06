@@ -1,0 +1,24 @@
+---
+import { Icon } from 'astro-icon/components';
+const { previous = {}, next = {} } = Astro.props;
+---
+<nav class="article-navigation">
+   <div class="article-navigation__container">
+      <div class="article-navigation__trigger article-navigation__trigger--previous">
+         { previous &&
+            <a href={previous.url}>
+               <Icon name="ph:arrow-left-bold" class="article-navigation__trigger-icon article-navigation__trigger-icon--previous" size="1.2em"/>
+               <span class="article-navigation__trigger-label">Previous</span>
+               <span class="article-navigation__previous-title">{previous.title}</span>
+            </a> }
+      </div>
+      <div class="article-navigation__trigger article-navigation__trigger--next">
+         { next &&
+            <a href={next.url}>
+               <span class="article-navigation__trigger-label">Next</span>
+               <span class="article-navigation__next-title">{next.title}</span>
+               <Icon name="ph:arrow-right-bold" class="article-navigation__trigger-icon article-navigation__trigger-icon--next" size="1.2em"/>
+            </a> }
+      </div>
+   </div>
+</nav>

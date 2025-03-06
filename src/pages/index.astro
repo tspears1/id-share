@@ -1,11 +1,21 @@
 ---
 import Welcome from '@components/Welcome.astro';
 import Layout from '@layouts/Full.astro';
+
+import { getCollection } from 'astro:content';
+
+// Get all entries from a collection.
+// Requires the name of the collection as an argument.
+const allDemos = await getCollection('demos');
 ---
 
 <Layout>
 	List of all demos
 	<ul>
-		<li><a href="/demos/css-variables">CSS Variables</a></li>
+		{allDemos.map((demo) => (
+			<li>
+				<a href={`${demo.collection}/${demo.id}`}>{demo.data.title}</a>
+			</li>
+		))}
 	</ul>
 </Layout>
