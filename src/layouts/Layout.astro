@@ -2,6 +2,9 @@
 import Header from '@components/organisms/Header.astro';
 import Footer from '@components/organisms/Footer.astro';
 import '../styles/main.scss';
+
+const { post } = Astro.props
+
 ---
 <!doctype html>
 <html lang="en">
@@ -10,11 +13,17 @@ import '../styles/main.scss';
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>ID://Share</title>
+		<title>{`ID://Share`}{post?.data?.title ? ` - ${post?.data?.title}` : ''}</title>
 	</head>
 	<body>
 		<Header />
-		<slot />
+		<main class="container container--grid">
+			<slot name="toolbar" />
+			<div class="inner">
+				<slot name="sidebar" />
+				<slot />
+			</div>
+		</main>
 		<Footer />
 	</body>
 </html>
@@ -31,4 +40,9 @@ import '../styles/main.scss';
 		margin: 0;
 		min-block-size: 100vb;
 	}
+	main {
+      padding-block: 0;
+      padding-inline: var(--site-padding-inline);
+		/* TODO ADD ACTUAL GRID CONTAINER */
+   }
 </style>

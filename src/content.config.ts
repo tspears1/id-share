@@ -1,10 +1,8 @@
-// 1. Import utilities from `astro:content`
-import { defineCollection, z } from 'astro:content';
+import { defineCollection, z, reference } from 'astro:content';
 
-// 2. Import loader(s)
-import { glob } from 'astro/loaders';
+import { glob, file } from 'astro/loaders';
 
-// 3. Define your collection(s)
+// Demos ==========================================
 const demos = defineCollection({
    loader: glob({
       pattern: '**/(*.mdx|*.md)',
@@ -14,7 +12,7 @@ const demos = defineCollection({
       isDraft: z.boolean(),
       slug: z.string(),
       title: z.string(),
-      series: z.string().optional(),
+      series: reference('series').optional(),
       sortOrder: z.number(),
       author: z.string(),
       description: z.string().optional(),
@@ -23,5 +21,13 @@ const demos = defineCollection({
    })
 });
 
-// 4. Export a single `collections` object to register your collection(s)
-export const collections = { demos };
+// Series =========================================
+const series = defineCollection({
+   loader: file('src/data/series.json'),
+   schema: z.object({
+      title: z.string(),
+      slug: z.string(),
+   })
+})
+
+export const collections = { demos, series };

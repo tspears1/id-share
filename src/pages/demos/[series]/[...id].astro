@@ -1,0 +1,29 @@
+---
+import Layout from '@layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+import { useDemoBreadcrumbs } from '@hooks/useDemoBreadcrumbs'
+import Breadcrumbs from '@components/molecules/Breadcrumbs.astro';
+
+// Build the dynamic route for each demo.
+export async function getStaticPaths() {
+   const demos = await getCollection('demos');
+   return demos.map(demo => ({
+      params: { id: demo.id, series: demo?.data?.series?.id },
+      props: { demo },
+   }));
+}
+
+// Get the demo data from the id.
+const { demo } = Astro.props;
+const { Content } = await render(demo);
+
+// Build demo breadcrumbs.
+const crumbs = await useDemoBreadcrumbs( demo )
+---
+<Layout post={demo}>
+   { crumbs && <Breadcrumbs items={crumbs} slot="toolbar" /> }
+   <article>
+      <h1>{demo.data.title}</h1>
+      <Content />
+   </article>
+</Layout>
