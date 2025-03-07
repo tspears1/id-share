@@ -1,8 +1,14 @@
 ---
+// Components ==========================================
 import Layout from '@layouts/Layout.astro';
-import { getCollection, render } from 'astro:content';
+import ArticleBanner from '@components/molecules/ArticleBanner/ArticleBanner.astro';
+import Breadcrumbs from '@components/molecules/Breadcrumbs/Breadcrumbs.astro';
+
+// Hooks ==============================================
 import { useDemoBreadcrumbs } from '@hooks/useDemoBreadcrumbs'
-import Breadcrumbs from '@components/molecules/Breadcrumbs.astro';
+
+// Astro ==============================================
+import { getCollection, getEntry, render } from 'astro:content';
 
 // Build the dynamic route for each demo.
 export async function getStaticPaths() {
@@ -13,17 +19,29 @@ export async function getStaticPaths() {
    }));
 }
 
-// Get the demo data from the id.
+// Get the demo data.
 const { demo } = Astro.props;
 const { Content } = await render(demo);
+const series = await getEntry(demo?.data?.series)
 
 // Build demo breadcrumbs.
 const crumbs = await useDemoBreadcrumbs( demo )
 ---
 <Layout post={demo}>
-   { crumbs && <Breadcrumbs items={crumbs} slot="toolbar" /> }
-   <article>
-      <h1>{demo.data.title}</h1>
+   { crumbs && <Breadcrumbs items={crumbs} slot="toolbar" classes="container__content--main" /> }
+   <article class="container__content--main">
+      <ArticleBanner title={demo.data.title} eyebrow={series?.data?.title ?? 'Demos'} />
       <Content />
    </article>
 </Layout>
+
+<style>
+   article {
+      display: grid;
+      grid-template-columns: subgrid;
+
+      > :where(:not([class*='container__content'])) {
+         grid-column: var(--container-columns--content);
+      }
+   }
+</style>

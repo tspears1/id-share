@@ -1,8 +1,8 @@
 ---
-const { items } = Astro.props;
+const { items, classes = '', ...attrs } = Astro.props;
 ---
 { items && items?.length > 0 &&
-   <nav class="breadcrumbs">
+   <nav class:list={['breadcrumbs', classes]} {...attrs}>
       <ul class="breadcrumbs__list">
          { items.map((item) => (
             <>

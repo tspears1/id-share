@@ -13,7 +13,7 @@ const defaultOptions = {
 const Sandbox = ({ files, title = '', template = 'static', options = {} }) => {
    options = { ...defaultOptions, ...options }
    return (
-      <div className="sandbox">
+      <div className="sandbox container__content--main">
          { title && <h3>{title}</h3> }
          <div className="sandbox__container">
             <Sandpack

@@ -1,0 +1,64 @@
+---
+const { eyebrow = '', title, description = '', classes = '', ...attrs } = Astro.props;
+---
+<section class:list={['article-banner', 'container__content--main', classes]} {...attrs}>
+   <div class="article-banner__inner">
+      <div class="article-banner__eyebrow">
+         { eyebrow }
+      </div>
+      <h1 class="article-banner__title">
+         { title }
+      </h1>
+      <p class="article-banner__description">
+         { description }
+      </p>
+   </div>
+</section>
+
+<style>
+   .article-banner {
+      --border-color: hsl(var(--color-accent));
+      display: grid;
+      grid-template-columns: subgrid;
+      min-block-size: 30vb;
+      padding-block: var(--size-fluid-4);
+      position: relative;
+
+      &::before {
+         background-size: var(--size-fluid-2) var(--size-fluid-2);
+         background-position: -1px center;
+         background-image:
+            linear-gradient(to right, var(--border-color) 2px, transparent 2px),
+            linear-gradient(to bottom, var(--border-color) 2px, transparent 2px);
+         border: var(--border-size-2) solid var(--border-color);
+         border-radius: var(--radius-2);
+         content: '';
+         inset: 0;
+         opacity: 0.2;
+         position: absolute;
+         z-index: -1;
+      }
+   }
+
+   .article-banner__inner {
+      align-content: center;
+      display: grid;
+      gap: var(--size-fluid-1);
+      grid-column: 2 / 12;
+   }
+
+   .article-banner__eyebrow {
+      color: hsl(var(--color-syntax-string));
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+      letter-spacing: var(--tracking-widest);
+      line-height: var(--leading-tight);
+      text-transform: uppercase;
+   }
+
+   .article-banner__title {
+      font-size: var(--heading-1);
+      line-height: var(--leading-tight);
+   }
+
+</style>

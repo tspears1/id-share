@@ -1,0 +1,55 @@
+@use '@styles/abstracts/mixins/breakpoints' as bp;
+
+.container {
+   --container-columns--wide: wide;
+	--container-columns--main: main;
+	--container-columns--content: main;
+	--container-columns--narrow: main;
+   --grid-gutter: var(--site-padding-inline);
+   align-content: start;
+   display: grid;
+   grid-template-columns:
+      [wide-start]
+      var(--grid-gutter)
+      [main-start]
+      repeat(6, minmax(0, 1fr))
+      [center]
+      repeat(6, minmax(0, 1fr))
+      [main-end]
+      var(--grid-gutter)
+      [wide-end];
+   grid-template-rows: auto;
+
+   @include bp.breakpoint(md) {
+      --container-columns--content: 3 / 11;
+		--container-columns--narrow: var(--container-columns--content);
+   }
+
+   @include bp.breakpoint(lg) {
+      --container-columns--narrow: 4 / 10;
+   }
+
+   @include bp.breakpoint(xl) {
+      --container-columns--narrow: 5 / 9;
+   }
+
+   &__content {
+
+		&--wide {
+			grid-column: var(--container-columns, var(--container-columns--wide));
+		}
+
+		&--main {
+			grid-column: var(--container-columns, var(--container-columns--main));
+		}
+
+      &--content {
+         grid-column: var(--container-columns, var(--container-columns--content));
+      }
+
+      &--narrow {
+         grid-column: var(--container-columns, var(--container-columns--narrow));
+      }
+
+   }
+}
