@@ -1,0 +1,130 @@
+---
+// Components ==========================================
+import Layout from '@layouts/Layout.astro';
+import ArticleBanner from '@components/molecules/ArticleBanner/ArticleBanner.astro';
+import Breadcrumbs from '@components/molecules/Breadcrumbs/Breadcrumbs.astro';
+
+// Astro ==============================================
+import { getCollection} from 'astro:content';
+
+
+// Build the dynamic route for each series.
+export async function getStaticPaths() {
+   const series = await getCollection('series');
+   return series.map(series => ({
+      params: { series: series.id },
+      props: { series },
+   }));
+}
+
+const { series } = Astro.props;
+const demos = await getCollection('demos', series.id)
+const demosInSeries = demos.filter(demo => demo.data.series?.id === series.id)
+---
+<Layout post={series}>
+   <Breadcrumbs items={[{ label: 'Demos', url: '/demos' }, { label: series.data.title, url: '' }]} slot="toolbar" classes="container__content--main" />
+   <article class="article article--demo container__content--main">
+      <ArticleBanner title={series.data.title} eyebrow="Demos" />
+      <div class="inner">
+         <ul>
+            {demosInSeries.map(demo => (
+               <li class="card">
+                  <div class="count">{demo.data.sortOrder}</div>
+                  <h3>
+                     <a href={`/demos/${series.id}/${demo.id}`}>{demo.data.title}</a>
+                  </h3>
+                  <div class="author">
+                     {demo.data.author}
+                  </div>
+                  <div class="date">
+                     {new Date(demo.data.pubDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                  </div>
+               </li>
+            ))}
+         </ul>
+      </div>
+   </article>
+</Layout>
+
+<style>
+   .inner {
+      padding-block: var(--size-fluid-3);
+   }
+
+   ul {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(50ch, 1fr));
+      gap: var(--size-fluid-3);
+      list-style: none;
+      margin: 0;
+      padding: 0;
+   }
+
+   .card {
+      --card-border: var(--border-size-1) solid hsl(var(--color-text-3));
+      align-content: end;
+      aspect-ratio: var(--ratio-film);
+      border: var(--card-border);
+      border-radius: var(--radius-2);
+      display: grid;
+      gap: 0;
+      grid-template-areas:
+         'COUNT COUNT'
+         'TITLE TITLE'
+         'AUTHOR DATE';
+      grid-template-columns: repeat(2, auto);
+      grid-template-rows: 1fr auto auto;
+      position: relative;
+
+      > * {
+         padding: var(--size-fluid-2);
+      }
+   }
+
+   .count {
+      grid-area: COUNT;
+      justify-self: end;
+   }
+
+   h3 {
+      border-block: var(--card-border);
+      grid-area: TITLE;
+      font-size: var(--heading-3);
+      line-height: var(--leading-tight);
+
+      > a {
+         transition: color var(--duration-fast) var(--ease-out-3);
+
+         &:hover {
+            color: hsl(var(--color-syntax-string));
+            text-decoration: none;
+         }
+
+
+         &::after {
+            content: '';
+            inset: 0;
+            position: absolute;
+            z-index: 1;
+         }
+      }
+   }
+
+   :where(.author, .date) {
+      color: hsl(var(--color-text-3));
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-semibold);
+      letter-spacing: var(--tracking-widest);
+      line-height: var(--leading-tight);
+      text-transform: uppercase;
+   }
+
+   .author {
+      border-inline-end: var(--card-border);
+      grid-area: AUTHOR;
+   }
+
+   .date {
+      grid-area: DATE;
+   }
+</style>

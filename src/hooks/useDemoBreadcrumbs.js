@@ -1,4 +1,4 @@
-import { getEntry } from 'astro:content'
+import { useReferencedData } from './useReferencedData'
 const useDemoBreadcrumbs = async (demo) => {
    if (!demo) return []
 
@@ -6,8 +6,8 @@ const useDemoBreadcrumbs = async (demo) => {
    let crumbs = [{ label: 'Demos', url: '/demos' }]
 
    // Check if the demo has a series.
-   if (data.hasOwnProperty('series')) {
-      const { data: { title, slug } } = await getEntry('series', data.series?.id)
+   const { title, slug, hasSeries } = await useReferencedData(data, 'series')
+   if (hasSeries) {
       crumbs = [...crumbs, { label: title, url: `/demos/${slug}` }]
    }
 

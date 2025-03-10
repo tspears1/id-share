@@ -2,13 +2,15 @@
 // Components ==========================================
 import Layout from '@layouts/Layout.astro';
 import ArticleBanner from '@components/molecules/ArticleBanner/ArticleBanner.astro';
+import ArticleNavigation from '@components/molecules/ArticleNavigation/ArticleNavigation.astro';
 import Breadcrumbs from '@components/molecules/Breadcrumbs/Breadcrumbs.astro';
 
 // Hooks ==============================================
 import { useDemoBreadcrumbs } from '@hooks/useDemoBreadcrumbs'
+import { useReferencedData } from '@hooks/useReferencedData'
 
 // Astro ==============================================
-import { getCollection, getEntry, render } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 
 // Build the dynamic route for each demo.
 export async function getStaticPaths() {
@@ -22,23 +24,52 @@ export async function getStaticPaths() {
 // Get the demo data.
 const { demo } = Astro.props;
 const { Content } = await render(demo);
-const series = await getEntry(demo?.data?.series)
+const { hasSeries, title: seriesTitle, slug: seriesSlug } = await useReferencedData(demo.data, 'series')
 
 // Build demo breadcrumbs.
 const crumbs = await useDemoBreadcrumbs( demo )
+
+// Build demo navigation.
+const demos = await getCollection('demos')
+const demosInSeries = demos.filter(demo => demo.data.series?.id === seriesSlug)
+
+const getDemoNavItem = (demo, position = 'previous') => {
+   const demoIndex = demosInSeries.findIndex(d => d.id === demo.id)
+   if (position === 'previous') {
+      return demosInSeries[demoIndex - 1]
+         ? {
+            title: demosInSeries[demoIndex - 1].data.title,
+            url: `/demos/${seriesSlug}/${demosInSeries[demoIndex - 1].id}`
+         }
+         : null
+   }
+
+   if (position === 'next') {
+      return demosInSeries[demoIndex + 1]
+         ? {
+            title: demosInSeries[demoIndex + 1].data.title,
+            url: `/demos/${seriesSlug}/${demosInSeries[demoIndex + 1].id}`
+         }
+         : null
+   }
+}
 ---
 <Layout post={demo}>
    { crumbs && <Breadcrumbs items={crumbs} slot="toolbar" classes="container__content--main" /> }
-   <article class="container__content--main">
-      <ArticleBanner title={demo.data.title} eyebrow={series?.data?.title ?? 'Demos'} />
+   <article class="article article--demo container__content--main">
+      <ArticleBanner title={demo.data.title} eyebrow={hasSeries ? seriesTitle : 'Demos'} />
       <Content />
+      <ArticleNavigation classes="container__content--main" previous={getDemoNavItem(demo, 'previous')} next={getDemoNavItem(demo, 'next')} />
    </article>
 </Layout>
 
 <style>
    article {
       display: grid;
+      font-size: var(--font-size-lg);
+      gap: var(--size-fluid-5);
       grid-template-columns: subgrid;
+      padding-block-end: var(--size-fluid-5);
 
       > :where(:not([class*='container__content'])) {
          grid-column: var(--container-columns--content);

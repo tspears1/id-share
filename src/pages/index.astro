@@ -1,8 +1,12 @@
 ---
-import Welcome from '@components/Welcome.astro';
+// Components ==========================================
 import Layout from '@layouts/Layout.astro';
 
+// Astro ==============================================
 import { getCollection } from 'astro:content';
+
+// Hooks ==============================================
+import { useReferencedData } from '@hooks/useReferencedData'
 
 // Get all entries from a collection.
 // Requires the name of the collection as an argument.
@@ -12,10 +16,14 @@ const allDemos = await getCollection('demos');
 <Layout>
 	List of all demos
 	<ul>
-		{allDemos.map((demo) => (
-			<li>
-				<a href={`${demo.collection}/${demo.id}`}>{demo.data.title}</a>
-			</li>
-		))}
+		{allDemos.map(async (demo) => {
+			const { slug: seriesSlug, hasSeries } = await useReferencedData(demo.data, 'series')
+			const seriesPath = hasSeries ? `${seriesSlug}/` : ''
+			return (
+				<li>
+					<a href={`${demo.collection}/${seriesPath}${demo.id}`}>{demo.data.title}</a>
+				</li>
+			)
+		})}
 	</ul>
 </Layout>

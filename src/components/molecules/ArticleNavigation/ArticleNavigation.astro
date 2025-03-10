@@ -1,24 +1,129 @@
 ---
 import { Icon } from 'astro-icon/components';
-const { previous = {}, next = {} } = Astro.props;
+const { previous = {}, next = {}, classes = '', ...attrs } = Astro.props;
 ---
-<nav class="article-navigation">
-   <div class="article-navigation__container">
-      <div class="article-navigation__trigger article-navigation__trigger--previous">
+<nav class:list={['article-navigation', classes]} {...attrs}>
+   <ul class="list">
+      <li class="trigger" data-nav-trigger="previous">
          { previous &&
-            <a href={previous.url}>
-               <Icon name="ph:arrow-left-bold" class="article-navigation__trigger-icon article-navigation__trigger-icon--previous" size="1.2em"/>
-               <span class="article-navigation__trigger-label">Previous</span>
-               <span class="article-navigation__previous-title">{previous.title}</span>
-            </a> }
-      </div>
-      <div class="article-navigation__trigger article-navigation__trigger--next">
+            <Icon name="ph:arrow-fat-left-fill" class="trigger-icon" size="1.8em"/>
+            <div class="trigger-label">Previous</div>
+            <div class="trigger-title">
+               <a href={previous.url} class="trigger-link">
+                  {previous.title}
+               </a>
+            </div>
+         }
+      </li>
+      <li class="trigger" data-nav-trigger="next">
          { next &&
-            <a href={next.url}>
-               <span class="article-navigation__trigger-label">Next</span>
-               <span class="article-navigation__next-title">{next.title}</span>
-               <Icon name="ph:arrow-right-bold" class="article-navigation__trigger-icon article-navigation__trigger-icon--next" size="1.2em"/>
-            </a> }
-      </div>
-   </div>
+            <Icon name="ph:arrow-fat-right-fill" class="trigger-icon" size="1.8em"/>
+            <div class="trigger-label">Next</div>
+            <div class="trigger-title">
+               <a href={next.url} class="trigger-link">
+                  {next.title}
+               </a>
+            </div>
+         }
+      </li>
+   </ul>
 </nav>
+
+<style>
+   .article-navigation {
+      border-block: var(--border-size-1) solid hsl(var(--color-text-3));
+   }
+
+   .list {
+      align-items: end;
+      display: grid;
+      grid-template-columns: var(--prev-column, 0fr) var(--next-column, 0fr);
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      &:has([data-nav-trigger="previous"] .trigger-title) {
+         --prev-column: 1fr;
+
+         &:has([data-nav-trigger="next"] .trigger-title) {
+            --prev-column: max-content;
+         }
+      }
+
+      &:has([data-nav-trigger="next"] .trigger-title) {
+         --next-column: 1fr;
+      }
+   }
+
+   .trigger {
+      align-items: end;
+      block-size: 100%;
+      color: hsl(var(--color-text-2));
+      display: grid;
+      gap: var(--shim-5) var(--size-fluid-3);
+      padding-block: var(--size-fluid-3);
+      position: relative;
+      transition:
+         grid-template-columns var(--duration-fast) var(--ease-out-3),
+         color var(--duration-fast) var(--ease-out-3);
+
+      &:hover,
+      &:focus-within {
+         color: hsl(var(--color-syntax-string));
+      }
+   }
+
+   .trigger-icon {
+      grid-area: ICON;
+   }
+
+   .trigger-label {
+      font-size: var(--heading-3);
+      font-weight: var(--font-weight-black);
+      grid-area: LABEL;
+      line-height: var(--leading-none);
+   }
+
+   .trigger-title {
+      grid-area: TITLE;
+      overflow: clip;
+      text-overflow: clip;
+      white-space: nowrap;
+   }
+
+   .trigger-link {
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      letter-spacing: var(--tracking-wider);
+
+      &::before {
+         content: '';
+         inset: 0;
+         position: absolute;
+         z-index: 1;
+      }
+   }
+   .trigger[data-nav-trigger="previous"] {
+      grid-template-areas:
+         'TITLE ICON'
+         'TITLE LABEL';
+      grid-template-columns: 0fr max-content;
+      grid-template-rows: max-content auto;
+      justify-content: end;
+      justify-items: end;
+      padding-inline-end: var(--size-fluid-2);
+   }
+
+   .trigger[data-nav-trigger="next"] {
+      border-inline-start: var(--border-size-1) solid hsl(var(--color-text-3));
+      grid-template-areas:
+      'ICON TITLE'
+      'LABEL TITLE';
+      grid-template-columns: max-content 1fr;
+      grid-template-rows: max-content auto;
+      justify-content: start;
+      justify-items: start;
+      padding-inline-start: var(--size-fluid-2);
+   }
+
+</style>
