@@ -1,5 +1,16 @@
 .sandbox {
 
+   &__title {
+      background: hsl(var(--color-surface-1));
+      border-radius: 4px 4px 0 0;
+      border: 1px solid hsl(var(--color-surface-2));
+      border-width: 1px 1px 0;
+      color: hsl(var(--color-syntax-string));
+      font-size: var(--font-size-sm);
+      letter-spacing: var(--tracking-wider);
+      padding: 0.5em 0.75em;
+   }
+
    /* ===== SandpackProvider ============================= */
    /* Overall wrapper */
    &.sp-wrapper {}

@@ -22,3 +22,27 @@ a {
     color: inherit;
   }
 }
+
+strong {
+  border: 1px solid hsl(var(--color-syntax-string));
+  border-radius: var(--radius-2);
+  padding: 0.125em 0.25em;
+}
+
+em {
+  text-decoration-color: hsl(var(--color-syntax-keyword));
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-thickness: 0.125em;
+  text-underline-offset: 0.25em;
+}
+
+code {
+  background: hsl(var(--color-syntax-tag));
+  border-radius: var(--radius-1);
+  color: hsl(var(--color-slate-800-hsl));
+  font-size: 0.875em;
+  font-weight: var(--font-weight-semibold);
+  margin-inline: 0.25em;
+  padding: 0.25em;
+}

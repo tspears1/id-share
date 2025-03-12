@@ -9,9 +9,11 @@ pubDate: 2025-03-04
 ---
 import { Sandbox } from '@components/molecules/Sandbox/Sandbox.jsx'
 
-This is my demo about CSS Variables. It's a bit long, so I'm going to split it up into multiple demos.
+**CSS variables**, also known as **Custom Properties**, allow you to store values that can be reused throughout your CSS.
 
-<Sandbox client:load title="CSS Variables">
+They are **defined** with a name that starts with two dashes ( e.g., `--my-variable` ) and can be accessed using the `var()` function as the value of _any_ CSS property.
+
+<Sandbox client:load>
 ```html /index.html
 <!DOCTYPE html>
 <html>
@@ -19,12 +21,17 @@ This is my demo about CSS Variables. It's a bit long, so I'm going to split it u
 <head>
   <title>ID Sandbox</title>
   <meta charset="UTF-8" />
+  <link rel="stylesheet" href="/base.css" />
   <link rel="stylesheet" href="/styles.css" />
 </head>
 
 <body>
-  <h1>Hello world</h1>
-  <p>This is a paragraph</p>
+  <div class="card">
+    <h1>Episode IV: A New Hope</h1>
+    <p>It is a period of civil war. Rebel spaceships, striking from a hidden base, have won their first victory against the evil Galactic Empire.</p>
+    <p>During the battle, Rebel spies managed to steal secret plans to the Empire's ultimate weapon, the DEATH STAR, an armored space station with enough power to destroy an entire planet.</p>
+    <p>Pursued by the Empire's sinister agents, Princess Leia races home aboard her starship, custodian of the stolen plans that can save her people and restore freedom to the galaxy...</p>
+  </div>
 </body>
 
 </html>
@@ -32,16 +39,230 @@ This is my demo about CSS Variables. It's a bit long, so I'm going to split it u
 
 ```css /styles.css active
 body {
-  --color-primary: hotpink;
-  --color-secondary: cyan;
+  --heading-color: rebeccapurple;
+  --paragraph-color: darkcyan;
 }
 
 h1 {
-  color: var(--color-primary);
+  color: var(--heading-color);
 }
 
 p {
-  color: var(--color-secondary);
+  color: var(--paragraph-color);
+}
+```
+
+```css /base.css hidden
+body {
+  background: hsl(227.1 29.5% 16.7%);
+  block-size: calc(100vh - 12px);
+  border: 2px solid white;
+  display: grid;
+  font-family: 'Silka', sans-serif;
+  font-size: 1.125rem;
+  font-size: 1.125rem;
+  margin: 0.25em;
+  padding: 0 2rem;
+  place-content: center;
+  text-align: center;
+
+  h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-block-start: 0;
+  }
+
+  .card {
+    background: hsl(0 100% 100%);
+    border-radius: 0.25rem;
+    padding: 4rem 2rem;
+  }
+}
+```
+</Sandbox>
+
+CSS Variables are most useful when you need to store a value that is going to be **reused** throughout your CSS.
+
+This becomes incredibly powerful when **theming** or using **calculations** to generate values.
+
+They are also **self-referencing**, which simplifies the _debugging_ process or making larger changes to your site.
+
+<Sandbox client:load>
+```html /index.html
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>ID Sandbox</title>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="/base.css" />
+  <link rel="stylesheet" href="/styles-variables.css" />
+</head>
+
+<body>
+  <div class="grid">
+    <article class="card card--hope">
+      <h2>Episode IV:</br>A New Hope</h2>
+      <div class="skeleton-text"></div>
+      <div class="skeleton-text"></div>
+      <button>Watch</button>
+    </article>
+    <article class="card card--empire">
+      <h2>Episode V:</br>The Empire Strikes Back</h2>
+      <div class="skeleton-text"></div>
+      <div class="skeleton-text"></div>
+      <button>Watch</button>
+    </article>
+    <article class="card card--jedi">
+      <h2>Episode VI:</br>Return of the Jedi</h2>
+      <div class="skeleton-text"></div>
+      <div class="skeleton-text"></div>
+      <button>Watch</button>
+    </article>
+  </div>
+</body>
+
+</html>
+```
+
+```css /base.css hidden
+body {
+  border: 2px solid white;
+  block-size: calc(100vh - 12px);
+  display: grid;
+  font-family: 'Silka', sans-serif;
+  font-size: 1.125rem;
+  margin: 0.25em;
+  padding: 0 2rem;
+  place-items: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+h2 {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-block-start: 0;
+}
+
+.skeleton-text {
+  block-size: 1.5rem;
+  background: hsl(0 0% 90%);
+  border-radius: 2px;
+  inline-size: 90%;
+}
+
+button {
+  appearance: none;
+  background: hsl(0 0% 100%);
+  border: 2px solid hsl(0 0% 50%);
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: bold;
+  letter-spacing: 0.125em;
+  padding: 0.5rem 1rem;
+  text-transform: uppercase;
+  margin-block-start: 1rem;
+}
+
+.card {
+  display: grid;
+  gap: 1rem;
+  grid-template-rows: 1fr auto auto auto;
+  padding: 2rem 1rem;
+}
+```
+```css /styles-plain.css active
+body {
+  background: hsl(227.1 29.5% 16.7%);
+}
+
+.card {
+  background: hsl(0 100% 100%);
+  border: 3px solid hsl(0 0% 0%);
+  border-radius: 0.25rem;
+
+  &:where(.card--hope) {
+    border-color: hsl(141.6 72.4% 45.2%);
+
+    h2 {
+      color: hsl(141.6 72.4% 45.2%);
+    }
+
+    button {
+      border-color: hsl(141.6 72.4% 45.2%);
+    }
+  }
+
+  &:where(.card--empire) {
+    border-color: hsl(219.6 100% 50.2%);
+
+    h2 {
+      color: hsl(219.6 100% 50.2%);
+    }
+
+    button {
+      border-color: hsl(219.6 100% 50.2%);
+    }
+  }
+
+  &:where(.card--jedi) {
+    border-color: hsl(0.7 89.6% 57.2%);
+
+    h2 {
+      color: hsl(0.7 89.6% 57.2%);
+    }
+
+    button {
+      border-color: hsl(0.7 89.6% 57.2%);
+    }
+  }
+
+  button {
+    border-radius: 0.25rem;
+  }
+}
+```
+```css /styles-variables.css
+:root {
+  --color-white: hsl(0 0% 100%);
+  --color-slate: hsl(227.1 29.5% 16.7%);
+  --global-border-radius: 0.25rem;
+}
+
+body {
+  background: var(--color-slate);
+}
+
+.card {
+  background: var(--color-white);
+  border: 3px solid var(--card-color-primary);
+  border-radius: var(--global-border-radius);
+
+  h2 {
+    color: var(--card-color-primary);
+  }
+
+  button {
+    border-radius: var(--global-border-radius);
+    border-color: var(--card-color-primary);
+  }
+
+  &:where(.card--hope) {
+    --card-color-primary: hsl(141.6 72.4% 45.2%);
+  }
+
+  &:where(.card--empire) {
+    --card-color-primary: hsl(219.6 100% 50.2%);
+  }
+
+  &:where(.card--jedi) {
+    --card-color-primary: hsl(0.7 89.6% 57.2%);
+  }
 }
 ```
 </Sandbox>
