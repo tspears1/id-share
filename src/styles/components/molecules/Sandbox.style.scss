@@ -77,7 +77,8 @@
    }
 
    .sp-preview-actions {
-      > a[href^="https://codesandbox.io"] {
+      > a[href^="https://codesandbox.io"],
+      > button[title="Open in CodeSandbox"] {
          display: none !important;
       }
    }

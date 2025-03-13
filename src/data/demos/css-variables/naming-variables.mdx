@@ -9,3 +9,102 @@ pubDate: 2025-03-09
 ---
 import { Sandbox } from '@components/molecules/Sandbox/Sandbox.jsx'
 
+- variable names can contain contain alphanumeric characters, underscores, or dashes.
+- variable names cannot contain spaces.
+- variable names are case-sensitive.
+
+valid names:
+```scss
+--color: blue;
+---: blue;
+--_: blue;
+--2: blue;
+--CoLoRbLuE: blue;
+--color--b--l--u--e: blue;
+```
+
+## Primitives
+A primitive is a subatomic or base value that can be used in CSS.
+Primitive values are almost never redefined.
+Primitive variable names might be:
+```scss
+--ratio-square: 1;
+--color-blue-500: hsl(219.6 100% 50.2%);
+--font-size-md: 1.25rem;
+--ease-in-quad: cubic-bezier(0.55, 0.085, 0.68, 0.53);
+--z-dropdown: 2000;
+```
+
+## Semantics
+Semantic variable names are used to describe the purpose of a variable.
+They often have a more specific scope.
+Their values are often primitives.
+Semantic variable names might be:
+```scss
+// Global
+--bu-section-spacing: var(--size-fluid-5);
+--color-primary: var(--color-blue-500);
+
+// Local
+--intro-heading-font-size: var(--font-size-md);
+--button-easing: var(--ease-in-quad);
+--icon-ratio: var(--ratio-square);
+```
+
+## Naming Conventions
+Its best to establish a fixed naming convention for each project,
+to create clear context for each variable.
+The pattern below is a good starting point. It closely follows the [BEM](https://getbem.com/naming/) naming convention.
+
+```scss
+// BEM in class names.
+.block__element--modifier {}
+
+// BEM in CSS variables.
+--[prefix]-[block]-[element]-[property]--[modifier/state/variant]: [value];
+```
+
+### Prefix
+The prefix is a short, unique identifier for the project.
+Its purpose is to help avoid naming collisions.
+Great for larger scopes, like a Site or a Product.
+Optional.
+
+`--bu-`
+`--id-`
+`--cfa-`
+`--burf-`
+
+### Block
+The block is a short, unique identifier for the block selector.
+
+`--button-`
+`--card-`
+`--section-`
+`--footer-menu-`
+
+### Element
+The element is a short, unique identifier for the element selector.
+
+`--title-`
+`--text-`
+`--icon-`
+
+## Property
+The property should be identical to the CSS property it is associated with.
+This is a good way to ensure that the variable name is consistent with the CSS.
+If the property is broader than it should be short and functionaly descriptive.
+
+`-font-size-`
+`-color-`
+`-background-color-`
+`-border-radius-`
+`-spacing-`
+
+## Modifier / State
+These suffixes are usually variations of a defined property.
+I typically use a double dash to separate the modifier from the property.
+
+`--active`
+`--hover`
+`--is-open`

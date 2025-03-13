@@ -8,4 +8,37 @@ author: Tim Spears
 pubDate: 2025-03-08
 ---
 import { Sandbox } from '@components/molecules/Sandbox/Sandbox.jsx'
+import Alert from '@components/molecules/Alert/Alert.astro'
 
+- css variables can be defined **globally** or **locally**.
+- css variables can be REDFINED
+- css variables are **scoped** to the **element** they are declared on.
+- css variables are **inherited** by child elements.
+- css variables can be **overridden** by **cascading** or **specific** rules.
+- css variables can pass **through** the **shadow DOM** boundary.
+- css variables cannot pass through iframes.
+- just like other inheritance, css variables ca be declard in media queries.
+
+CSS scoping works similar to how it works in languages like Javascript:
+
+```js
+// index.js =======================================
+
+let color = 'red'; // define color
+
+function changeColor() {
+   color = 'blue'; // redefine color within scope
+   console.log(color); // 'blue'
+
+   let backgroundColor = 'green' // define backgroundColor
+   console.log(backgroundColor); // 'green'
+}
+
+console.log(color); // 'red'
+console.log(backgroundColor); // Uncaught ReferenceError: backgroundColor is not defined
+```
+
+<Alert title="Did you know?" variant="info">
+   `:root` is a pseudo-class that matches the root element of a tree representing the document. It is equivalent to `html` in CSS.
+   However `:root` has higher specificity. When setting global variables, i recommend using `:where(html)` instead.
+</Alert>

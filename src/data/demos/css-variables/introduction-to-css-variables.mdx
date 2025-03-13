@@ -81,11 +81,39 @@ body {
 ```
 </Sandbox>
 
+Variable values can be a `string`, `keyword`, `number`, `color`, `unit`, `css function`, or even another `css variable`. Basically any value that a standard css property would accept, or even just part of it.
+
+```scss
+:root {
+  // String.
+  --content-grid-areas: 'sidebar content';
+
+  // Keyword.
+  --callout-justify-content: space-between;
+
+  // Number.
+  --card-index: 3;
+
+  // Color.
+  --card-color-primary: hsl(141.6 72.4% 45.2%);
+
+  // Unit.
+  --card-border-radius: 0.25rem;
+
+  // CSS Function.
+  --icon-size: calc(1.5rem + 1vw);
+
+  // CSS Variable.
+  --card-color-primary: var(--color-blue-300);
+}
+
+```
+
 CSS Variables are most useful when you need to store a value that is going to be **reused** throughout your CSS.
 
 This becomes incredibly powerful when **theming** or using **calculations** to generate values.
 
-They are also **self-referencing**, which simplifies the _debugging_ process or making larger changes to your site.
+They are also **self-referencing**, which simplifies the _debugging_ process and prevents magic numbers from being used.
 
 <Sandbox client:load>
 ```html /index.html
@@ -229,9 +257,12 @@ body {
 ```
 ```css /styles-variables.css
 :root {
-  --color-white: hsl(0 0% 100%);
-  --color-slate: hsl(227.1 29.5% 16.7%);
   --global-border-radius: 0.25rem;
+  --color-blue: hsl(219.6 100% 50.2%);
+  --color-green: hsl(141.6 72.4% 45.2%);
+  --color-red: hsl(0.7 89.6% 57.2%);
+  --color-slate: hsl(227.1 29.5% 16.7%);
+  --color-white: hsl(0 0% 100%);
 }
 
 body {
@@ -253,15 +284,15 @@ body {
   }
 
   &:where(.card--hope) {
-    --card-color-primary: hsl(141.6 72.4% 45.2%);
+    --card-color-primary: var(--color-green);
   }
 
   &:where(.card--empire) {
-    --card-color-primary: hsl(219.6 100% 50.2%);
+    --card-color-primary: var(--color-blue);
   }
 
   &:where(.card--jedi) {
-    --card-color-primary: hsl(0.7 89.6% 57.2%);
+    --card-color-primary: var(--color-red);
   }
 }
 ```

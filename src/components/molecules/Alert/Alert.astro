@@ -1,0 +1,38 @@
+---
+const { variant = 'info', title='' } = Astro.props;
+import { Icon } from 'astro-icon/components';
+
+const variantIcons = {
+   info: 'ph:info',
+   success: 'ph:check-circle',
+   warning: 'ph:warning',
+   error: 'ph:warning-octagon',
+};
+---
+
+<div class:list={['alert', `alert--${variant}`]}>
+   <Icon name={variantIcons[variant]} class="alert__icon" />
+   { title && <h3 class="alert__title">{title}</h3> }
+   <slot />
+</div>
+
+<style lang="scss">
+   .alert {
+
+      &:where(&--info) {
+         --alert-color: var(--color-info-500);
+      }
+
+      &:where(&--success) {
+         --alert-color: var(--color-success-500);
+      }
+
+      &:where(&--warning) {
+         --alert-color: var(--color-warning-500);
+      }
+
+      &:where(&--error) {
+         --alert-color: var(--color-error-500);
+      }
+   }
+</style>

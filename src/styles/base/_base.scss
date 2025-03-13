@@ -23,6 +23,10 @@ a {
   }
 }
 
+p {
+  line-height: var(--leading-paragraph);
+}
+
 strong {
   border: 1px solid hsl(var(--color-syntax-string));
   border-radius: var(--radius-2);
@@ -45,4 +49,49 @@ code {
   font-weight: var(--font-weight-semibold);
   margin-inline: 0.25em;
   padding: 0.25em;
+}
+
+pre {
+  background: hsl(var(--color-surface-1)) !important;
+  border-radius: var(--radius-2);
+  margin-block: var(--size-fluid-6);
+  padding: var(--size-fluid-2);
+  tab-size: 2;
+
+  code {
+    background: transparent;
+    border-radius: 0;
+    color: hsl(var(--color-syntax-plain)) !important;
+    font-weight: var(--font-weight-medium);
+    margin: 0;
+    padding: 0;
+
+    :where([style="color:#E1E4E8"]) {
+      color: hsl(var(--color-syntax-punctuation)) !important;
+    }
+
+    :where([style="color:#FFAB70"]) {
+      color: hsl(var(--color-syntax-plain)) !important;
+    }
+
+    :where([style="color:#B392F0"]) {
+      color: hsl(var(--color-syntax-definition)) !important;
+    }
+
+    :where([style="color:#79B8FF"]) {
+      color: hsl(var(--color-syntax-static)) !important;
+    }
+
+    :where([style="color:#F97583"]) {
+      color: hsl(var(--color-syntax-keyword)) !important;
+    }
+
+    :where([style="color:#9ECBFF"]) {
+      color: hsl(var(--color-syntax-string)) !important;
+    }
+
+    :where([style="color:#6A737D"]) {
+      color: hsl(var(--color-syntax-comment)) !important;
+    }
+  }
 }
