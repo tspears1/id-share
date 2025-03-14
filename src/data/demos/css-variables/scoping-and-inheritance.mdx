@@ -10,16 +10,19 @@ pubDate: 2025-03-08
 import { Sandbox } from '@components/molecules/Sandbox/Sandbox.jsx'
 import Alert from '@components/molecules/Alert/Alert.astro'
 
-- css variables can be defined **globally** or **locally**.
-- css variables can be REDFINED
-- css variables are **scoped** to the **element** they are declared on.
-- css variables are **inherited** by child elements.
-- css variables can be **overridden** by **cascading** or **specific** rules.
-- css variables can pass **through** the **shadow DOM** boundary.
-- css variables cannot pass through iframes.
-- just like other inheritance, css variables ca be declard in media queries.
+## CSS Variables...
+- can be defined **globally** or **locally**.
+- can be **REDFINED**
+- are **scoped** to the **element** they are declared on.
+- are **inherited** by child elements.
+- can be **overridden** by **cascading** or **specificity** rules.
+- can pass **through** the **shadow DOM** boundary. 🪄
+- cannot pass through iFrames.
+- can be declared **within** media queries but not as media query _rules or values_ ... **(YET)**.
 
-CSS scoping works similar to how it works in languages like Javascript:
+---
+## Scope
+CSS scoping works similar to how it works in languages like **Javascript**:
 
 ```js
 // index.js =======================================
@@ -38,7 +41,41 @@ console.log(color); // 'red'
 console.log(backgroundColor); // Uncaught ReferenceError: backgroundColor is not defined
 ```
 
+Similarly, in CSS we might write:
+
+```css
+:where(html) {
+   --color: red;
+}
+
+.card {
+   border-color: var(--color); /* 'red' */
+}
+
+.card__header {
+   --background-color: green;
+   --color: blue;
+
+   background-color: var(--background-color); /* 'green' */
+   color: var(--color); /* 'blue' */
+}
+
+.card__footer {
+   background-color: var(--background-color); /* undefined */
+   color: var(--color); /* red */
+}
+```
+
+
+
+
 <Alert title="Did you know?" variant="info">
    `:root` is a pseudo-class that matches the root element of a tree representing the document. It is equivalent to `html` in CSS.
-   However `:root` has higher specificity. When setting global variables, i recommend using `:where(html)` instead.
+   However `:root` has higher specificity. When setting global variables, I recommend using `:where(html)` instead to keep the specificity low.
+
+   ```css
+   :where(html) {
+      --color: red;
+   }
+   ```
 </Alert>

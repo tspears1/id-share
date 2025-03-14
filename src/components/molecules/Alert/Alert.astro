@@ -11,28 +11,63 @@ const variantIcons = {
 ---
 
 <div class:list={['alert', `alert--${variant}`]}>
-   <Icon name={variantIcons[variant]} class="alert__icon" />
-   { title && <h3 class="alert__title">{title}</h3> }
-   <slot />
+   <div class="alert__header">
+      <Icon name={variantIcons[variant]} class="alert__icon" />
+      { title && <h3 class="alert__title">{title}</h3> }
+   </div>
+   <div class="alert__content">
+      <slot />
+   </div>
 </div>
 
 <style lang="scss">
    .alert {
+      background-color: hsl(var(--color-surface-1));
+      border: var(--border-size-1) solid hsl(var(--color-surface-2));
+      border-block-start: var(--border-size-3) solid hsl(var(--alert-color));
+      border-radius: var(--radius-3);
+      display: grid;
+      gap: var(--size-fluid-3);
+      padding: var(--size-fluid-4);
 
       &:where(&--info) {
-         --alert-color: var(--color-info-500);
+         --alert-color: var(--color-info);
       }
 
       &:where(&--success) {
-         --alert-color: var(--color-success-500);
+         --alert-color: var(--color-success);
       }
 
       &:where(&--warning) {
-         --alert-color: var(--color-warning-500);
+         --alert-color: var(--color-warning);
       }
 
       &:where(&--error) {
-         --alert-color: var(--color-error-500);
+         --alert-color: var(--color-error);
+      }
+
+      &__header {
+         align-items: center;
+         display: flex;
+         gap: var(--size-2);
+      }
+
+      &__title {
+         font-size: var(--heading-5);
+         font-weight: var(--font-weight-bold);
+      }
+
+      &__icon {
+         block-size: var(--size-3);
+         inline-size: var(--size-3);
+      }
+   }
+</style>
+<style is:global>
+   .alert {
+      pre {
+         border: var(--border-size-1) solid hsl(var(--alert-color));
+         margin-block: var(--size-fluid-2);
       }
    }
 </style>

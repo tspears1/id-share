@@ -26,6 +26,7 @@ valid names:
 ## Primitives
 A primitive is a subatomic or base value that can be used in CSS.
 Primitive values are almost never redefined.
+Primitives should be defined in the root/global scope.
 Primitive variable names might be:
 ```scss
 --ratio-square: 1;
@@ -34,6 +35,18 @@ Primitive variable names might be:
 --ease-in-quad: cubic-bezier(0.55, 0.085, 0.68, 0.53);
 --z-dropdown: 2000;
 ```
+
+Naming primitives often start with the property name they're associated with:
+
+`--color-`
+`--font-family-`
+`--font-weight-`
+
+Some frameworks will use an abbreviated prefix instead:
+
+`--c-`
+`--ff-`
+`--fw-`
 
 ## Semantics
 Semantic variable names are used to describe the purpose of a variable.

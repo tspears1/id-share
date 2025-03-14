@@ -41,6 +41,22 @@ em {
   text-underline-offset: 0.25em;
 }
 
+ul:where([class]) {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul:where(:not([class])) {
+  display: grid;
+  gap: var(--size-fluid-2);
+  margin-block-end: var(--size-fluid-3);
+}
+
+hr {
+  border-color: hsl(var(--color-syntax-keyword));
+}
+
 code {
   background: hsl(var(--color-syntax-tag));
   border-radius: var(--radius-1);
@@ -54,9 +70,24 @@ code {
 pre {
   background: hsl(var(--color-surface-1)) !important;
   border-radius: var(--radius-2);
-  margin-block: var(--size-fluid-6);
+  margin-block: var(--size-fluid-4) var(--size-fluid-6);
   padding: var(--size-fluid-2);
+  position: relative;
   tab-size: 2;
+
+  &::before {
+    background-color: hsl(var(--color-surface-2));
+    border-radius: inherit;
+    content: attr(data-language);
+    color: hsl(var(--color-text-3));
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    inset: 0 0 auto auto;
+    letter-spacing: var(--tracking-widest);
+    padding: 0.25em 1em;
+    position: absolute;
+    text-transform: uppercase;
+  }
 
   code {
     background: transparent;

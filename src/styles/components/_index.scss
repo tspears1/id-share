@@ -2,7 +2,7 @@
 @layer ui, atoms, molecules, organisms;
 
 @layer ui {
-   @layer alert { @include meta.load-css('@styles/components/ui/Alert.style.scss'); }
+   // @layer alert { @include meta.load-css('@styles/components/ui/Alert.style.scss'); }
    @layer badge { @include meta.load-css('@styles/components/ui/Badge.style.scss'); }
    @layer breadcrumbs { @include meta.load-css('@styles/components/ui/Breadcrumbs.style.scss'); }
    @layer button { @include meta.load-css('@styles/components/ui/Button.style.scss'); }
