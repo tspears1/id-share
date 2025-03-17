@@ -31,7 +31,9 @@ const crumbs = await useDemoBreadcrumbs( demo )
 
 // Build demo navigation.
 const demos = await getCollection('demos')
-const demosInSeries = demos.filter(demo => demo.data.series?.id === seriesSlug)
+const demosInSeries = demos
+   .filter(demo => demo.data.series?.id === seriesSlug)
+   .sort((a, b) => a.data.sortOrder - b.data.sortOrder)
 
 const getDemoNavItem = (demo, position = 'previous') => {
    const demoIndex = demosInSeries.findIndex(d => d.id === demo.id)

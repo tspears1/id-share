@@ -11,13 +11,16 @@ import { Sandbox } from '@components/molecules/Sandbox/Sandbox.jsx'
 
 > "There are only two hard things in computer science: **cache invalidation** & **naming things**."
 >
-> <cite>-- Phil Karlton _(probably)_</cite>
+> <cite>-- Phil Karlton _...probably_</cite>
 
 ## CSS Variables names...
 <div style="font-size: var(--font-size-xl);">
-- can contain contain alphanumeric characters ( `a-z`, `A-Z`, `0-9` ), underscores ( `_` ), or dashes ( `-` ).
-- cannot contain spaces.
-- are case-sensitive.
+- can contain contain:
+   - alphanumeric characters ( `a-z`, `A-Z`, `0-9` )
+   - underscores ( `_` )
+   - dashes ( `-` )
+- cannot contain **spaces**.
+- are **case-sensitive**.
 </div>
 
 ## These are all valid names
@@ -31,8 +34,8 @@ import { Sandbox } from '@components/molecules/Sandbox/Sandbox.jsx'
 ```
 
 ## Primitives
-A primitive is a subatomic or base value that can be used in CSS.
-Primitive values are almost never redefined.
+A primitive is a **subatomic** or base value that can be used in CSS.
+Primitive values are almost **never redefined**.
 Primitives should be defined in the root/global scope.
 Primitive variable names might be:
 ```scss
@@ -56,7 +59,7 @@ Some frameworks will use an abbreviated prefix instead:
 `--fw-`
 
 ## Semantics
-Semantic variable names are used to describe the purpose of a variable.
+Semantic variable names are used to **describe** the functional purpose of a variable.
 They often have a more specific scope.
 Their values are often primitives.
 Semantic variable names might be:

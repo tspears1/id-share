@@ -13,8 +13,16 @@ a {
   text-decoration: none;
 
   &:where(:not([class])) {
+    text-decoration-color: hsl(var(--color-syntax-tag));
+    text-decoration-line: underline;
+    text-decoration-style: dotted;
+    text-decoration-thickness: 0.125em;
+    text-underline-offset: 0.25em;
+
     &:is(:hover, :focus-visible) {
-      text-decoration: underline;
+      text-decoration-color: hsl(var(--color-syntax-tag));
+      text-decoration-style: solid;
+      text-decoration-thickness: 0.25em;
     }
   }
 
@@ -34,11 +42,10 @@ strong {
 }
 
 em {
-  text-decoration-color: hsl(var(--color-syntax-keyword));
-  text-decoration-line: underline;
-  text-decoration-style: dotted;
-  text-decoration-thickness: 0.125em;
-  text-underline-offset: 0.25em;
+  border: var(--border-size-2) solid hsl(var(--color-syntax-keyword));
+  border-radius: var(--radius-round);
+  font-weight: var(--font-weight-medium);
+  padding: 0.125em 0.5em;
 }
 
 ul:where([class]) {
@@ -154,5 +161,11 @@ pre {
     :where([style="color:#6A737D"]) {
       color: hsl(var(--color-syntax-comment)) !important;
     }
+  }
+}
+
+.article__content {
+  :where(h1, h2, h3, h4, h5, h6):where(:not([class])) {
+    margin-block-start: var(--size-fluid-3);
   }
 }
