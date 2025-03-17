@@ -57,6 +57,36 @@ hr {
   border-color: hsl(var(--color-syntax-keyword));
 }
 
+blockquote {
+  border-inline-start: var(--border-size-6) solid hsl(var(--color-surface-2));
+  padding-inline-start: var(--size-fluid-3);
+
+  :is(strong) {
+    border: none;
+    color: hsl(var(--color-syntax-keyword));
+    padding: 0;
+  }
+
+  :where(:not(cite, cite *)) {
+    font-size: var(--heading-3);
+    font-weight: var(--font-weight-black);
+    line-height: var(--leading-tight);
+    max-inline-size: 45ch;
+  }
+
+  :where(cite) {
+    display: block;
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--leading-none);
+    margin-block-start: var(--size-fluid-2);
+  }
+
+  + * {
+    margin-block-start: var(--size-fluid-6);
+  }
+}
+
 code {
   background: hsl(var(--color-syntax-tag));
   border-radius: var(--radius-1);

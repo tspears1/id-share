@@ -11,15 +11,16 @@ import { Sandbox } from '@components/molecules/Sandbox/Sandbox.jsx'
 import Alert from '@components/molecules/Alert/Alert.astro'
 
 ## CSS Variables...
-- can be defined **globally** or **locally**.
-- can be **REDFINED**
-- are **scoped** to the **element** they are declared on.
-- are **inherited** by child elements.
-- can be **overridden** by **cascading** or **specificity** rules.
+<div style="font-size: var(--font-size-xl);">
+- can be defined **globally** or **locally**. 🌎🏡
+- can be **REDFINED** 😎
+- are **scoped** to the **element** they are declared on. 👯
+- are **inherited** by child elements. 🐣
+- can be **overridden** by **cascading** or **specificity** rules. 😒
 - can pass **through** the **shadow DOM** boundary. 🪄
-- cannot pass through iFrames.
-- can be declared **within** media queries but not as media query _rules or values_ ... **(YET)**.
-
+- can not modify content inside of **iframes**. ☹️
+- can be declared **within** media queries but not as media query _rules or values_ ... **(YET)**. 🫢
+</div>
 ---
 ## Scope
 CSS scoping works similar to how it works in languages like **Javascript**:
@@ -33,31 +34,32 @@ function changeColor() {
    color = 'blue'; // redefine color within scope
    console.log(color); // 'blue'
 
-   let backgroundColor = 'green' // define backgroundColor
-   console.log(backgroundColor); // 'green'
+   let backgroundColor = 'yellow' // define backgroundColor
+   console.log(backgroundColor); // 'yellow'
 }
 
-console.log(color); // 'red'
 console.log(backgroundColor); // Uncaught ReferenceError: backgroundColor is not defined
+console.log(color); // 'red'
 ```
 
 Similarly, in CSS we might write:
 
-```css
+<Sandbox client:load>
+```css /styles.css active
 :where(html) {
    --color: red;
 }
 
 .card {
-   border-color: var(--color); /* 'red' */
+   border-color: var(--color); /* red */
 }
 
 .card__header {
-   --background-color: green;
-   --color: blue;
+   --background-color: blue;
+   --color: yellow;
 
-   background-color: var(--background-color); /* 'green' */
-   color: var(--color); /* 'blue' */
+   background-color: var(--background-color); /* blue */
+   color: var(--color); /* yellow */
 }
 
 .card__footer {
@@ -65,9 +67,55 @@ Similarly, in CSS we might write:
    color: var(--color); /* red */
 }
 ```
+```html /index.html
+<!DOCTYPE html>
+<html>
 
+<head>
+   <title>ID Sandbox</title>
+   <meta charset="UTF-8" />
+   <link rel="stylesheet" href="/base.css" />
+   <link rel="stylesheet" href="/styles.css" />
+</head>
 
+<body>
+   <div class="card">
+      <header class="card__header">HEADER</header>
+      <div class="card-body"></div>
+      <footer class="card__footer">FOOTER</footer>
+   </div>
+</body>
 
+</html>
+```
+```css /base.css hidden
+body {
+   background-color: hsl(227.1 29.5% 16.7%);
+   block-size: 100vh;
+   display: grid;
+   place-items: center;
+}
+
+.card {
+   aspect-ratio: 2/3;
+   background: white;
+   block-size: 75vb;
+   border: 6px solid;
+   display: grid;
+   grid-template-rows: 1fr 4fr 1fr;
+   padding: 0.25rem;
+}
+
+:where(.card__header, .card__footer) {
+   border: 2px solid hsl(227.1 29.5% 96.7%);
+   display: grid;
+   place-items: center;
+   font-size: 1.5rem;
+   font-weight: bold;
+   font-family: 'Silka', sans-serif;
+}
+```
+</Sandbox>
 
 <Alert title="Did you know?" variant="info">
    `:root` is a pseudo-class that matches the root element of a tree representing the document. It is equivalent to `html` in CSS.

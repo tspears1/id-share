@@ -9,18 +9,25 @@ pubDate: 2025-03-09
 ---
 import { Sandbox } from '@components/molecules/Sandbox/Sandbox.jsx'
 
-- variable names can contain contain alphanumeric characters, underscores, or dashes.
-- variable names cannot contain spaces.
-- variable names are case-sensitive.
+> "There are only two hard things in computer science: **cache invalidation** & **naming things**."
+>
+> <cite>-- Phil Karlton _(probably)_</cite>
 
-valid names:
+## CSS Variables names...
+<div style="font-size: var(--font-size-xl);">
+- can contain contain alphanumeric characters ( `a-z`, `A-Z`, `0-9` ), underscores ( `_` ), or dashes ( `-` ).
+- cannot contain spaces.
+- are case-sensitive.
+</div>
+
+## These are all valid names
 ```scss
 --color: blue;
 ---: blue;
 --_: blue;
 --2: blue;
---CoLoRbLuE: blue;
---color--b--l--u--e: blue;
+--CoLoRbLuE-002: blue;
+--color--b--l---u----_e200: blue;
 ```
 
 ## Primitives
