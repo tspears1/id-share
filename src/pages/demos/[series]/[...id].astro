@@ -59,7 +59,7 @@ const getDemoNavItem = (demo, position = 'previous') => {
 <Layout post={demo}>
    { crumbs && <Breadcrumbs items={crumbs} slot="toolbar" classes="container__content--main" /> }
    <article class="article article--demo container__content--main">
-      <ArticleBanner title={demo.data.title} eyebrow={hasSeries ? seriesTitle : 'Demos'} />
+      <ArticleBanner title={demo.data.title} eyebrow={hasSeries ? seriesTitle : 'Demos'} img={demo.data.banner} />
       <div class="article__content">
          <Content />
       </div>

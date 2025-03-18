@@ -18,6 +18,7 @@ const demos = defineCollection({
       description: z.string().optional(),
       pubDate: z.coerce.date(),
       updatedDate: z.coerce.date().optional(),
+      banner: z.string().optional(),
    })
 });
 

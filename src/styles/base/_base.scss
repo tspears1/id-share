@@ -12,20 +12,6 @@ a {
   color: inherit;
   text-decoration: none;
 
-  &:where(:not([class])) {
-    text-decoration-color: hsl(var(--color-syntax-tag));
-    text-decoration-line: underline;
-    text-decoration-style: dotted;
-    text-decoration-thickness: 0.125em;
-    text-underline-offset: 0.25em;
-
-    &:is(:hover, :focus-visible) {
-      text-decoration-color: hsl(var(--color-syntax-tag));
-      text-decoration-style: solid;
-      text-decoration-thickness: 0.25em;
-    }
-  }
-
   &:is(:hover, :focus-visible) {
     color: inherit;
   }
@@ -58,6 +44,10 @@ ul:where(:not([class])) {
   display: grid;
   gap: var(--size-fluid-2);
   margin-block-end: var(--size-fluid-3);
+
+  li {
+    line-height: var(--leading-loose);
+  }
 }
 
 hr {
@@ -66,6 +56,7 @@ hr {
 
 blockquote {
   border-inline-start: var(--border-size-6) solid hsl(var(--color-surface-2));
+  margin-block-end: var(--size-fluid-4);
   padding-inline-start: var(--size-fluid-3);
 
   :is(strong) {
@@ -87,10 +78,6 @@ blockquote {
     font-weight: var(--font-weight-semibold);
     line-height: var(--leading-none);
     margin-block-start: var(--size-fluid-2);
-  }
-
-  + * {
-    margin-block-start: var(--size-fluid-6);
   }
 }
 
@@ -117,7 +104,7 @@ pre {
     border-radius: inherit;
     content: attr(data-language);
     color: hsl(var(--color-text-3));
-    font-size: var(--font-size-xs);
+    font-size: var(--font-size-2xs);
     font-weight: var(--font-weight-semibold);
     inset: 0 0 auto auto;
     letter-spacing: var(--tracking-widest);
@@ -167,5 +154,21 @@ pre {
 .article__content {
   :where(h1, h2, h3, h4, h5, h6):where(:not([class])) {
     margin-block-start: var(--size-fluid-3);
+  }
+
+  :where(a) {
+    &:where(:not([class])) {
+      text-decoration-color: hsl(var(--color-syntax-tag));
+      text-decoration-line: underline;
+      text-decoration-style: dotted;
+      text-decoration-thickness: 0.125em;
+      text-underline-offset: 0.25em;
+
+      &:is(:hover, :focus-visible) {
+        text-decoration-color: hsl(var(--color-syntax-tag));
+        text-decoration-style: solid;
+        text-decoration-thickness: 0.25em;
+      }
+    }
   }
 }

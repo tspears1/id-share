@@ -1,5 +1,5 @@
 ---
-const { eyebrow = '', title, description = '', classes = '', ...attrs } = Astro.props;
+const { eyebrow = '', title, description = '', img = '', classes = '', ...attrs } = Astro.props;
 ---
 <section class:list={['article-banner', 'container__content--main', classes]} {...attrs}>
    <div class="article-banner__inner">
@@ -13,6 +13,11 @@ const { eyebrow = '', title, description = '', classes = '', ...attrs } = Astro.
          { description }
       </p>
    </div>
+   {img &&
+      <div class="article-banner__media">
+         <img src={img} alt="A cat looking at a computer screen" width="100%" />
+      </div>
+   }
 </section>
 
 <style>
@@ -45,6 +50,11 @@ const { eyebrow = '', title, description = '', classes = '', ...attrs } = Astro.
       display: grid;
       gap: var(--size-fluid-1);
       grid-column: 2 / 12;
+      grid-row: 1 / span 1;
+
+      :has(img) & {
+         grid-column: 2 / 8;
+      }
    }
 
    .article-banner__eyebrow {
@@ -59,6 +69,13 @@ const { eyebrow = '', title, description = '', classes = '', ...attrs } = Astro.
    .article-banner__title {
       font-size: var(--heading-1);
       line-height: var(--leading-tight);
+   }
+
+   .article-banner__media {
+      display: grid;
+      grid-column: 8 / 12;
+      grid-row: 1 / span 1;
+      place-items: center;
    }
 
 </style>
