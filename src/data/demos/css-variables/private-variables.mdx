@@ -9,3 +9,241 @@ pubDate: 2025-03-12
 banner: https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExY3l0ZXI2cTVvbzFjeGk4YjEwbmlkODV4NTgxNW40dTF1a3dnaTllcCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3oFyCYNrra8qo1Cv8Q/giphy.gif
 ---
 import { Sandbox } from '@components/molecules/Sandbox/Sandbox.jsx'
+
+In many programming languages a **private variable** or function is one that is only accessible within the **scope** of the function or Class.
+
+While not a native _feature_ of CSS Variables as much as a organizational concept, Private Variables work in a similar way. The idea is to create variables that are defined on the root of an element or component and used only within that scope. This allows for fixed functionality, regardless of any variables that get redefined.
+
+The name comes from Lea Verou's [Custom properties with defaults: 3+1 strategies](https://lea.verou.me/blog/2021/10/custom-properties-with-defaults/) article:
+
+> My preferred solution is what I call **pseudo-private custom properties**. You use a different property internally than the one you expose, which is set to the one you expose plus the fallback...
+
+CSS wizard, [Adam Argyle](https://argyle.ink/announcing-the-mini-web-machines-series), might refer to these as a `mini web machine`!
+
+The easiest way to identify a private variable is to add an `_` underscore at the start of the variable name:
+
+`--_card-background-color:`
+
+## So what the heck are we talking about?
+Let's look at an example - Not every element is a great canidate for private variables - \
+_you CAN overdo it_.
+
+The perfect fit is usually a component that is likely to have many variations or themes or states like a `card` or `button`. Let's look at a button:
+
+<Sandbox client:load options={{ editorHeight: "60vi" }}>
+```html /index.html
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>ID Sandbox</title>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="/base.css" />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/colors.css" />
+  <link rel="stylesheet" href="/variables.css" />
+</head>
+
+<body>
+  <div class="grid">
+   <button class="button">
+      <span>Discover</span>
+      <svg class="button__icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"><path d="M232,104a56.06,56.06,0,0,0-56-56H136a24,24,0,0,1,24-24,8,8,0,0,0,0-16,40,40,0,0,0-40,40H80a56.06,56.06,0,0,0-56,56,16,16,0,0,0,8,13.83V128c0,35.53,33.12,62.12,59.74,83.49C103.66,221.07,120,234.18,120,240a8,8,0,0,0,16,0c0-5.82,16.34-18.93,28.26-28.51C190.88,190.12,224,163.53,224,128V117.83A16,16,0,0,0,232,104ZM80,64h96a40.06,40.06,0,0,1,40,40H40A40,40,0,0,1,80,64Zm74.25,135c-10.62,8.52-20,16-26.25,23.37-6.25-7.32-15.63-14.85-26.25-23.37C77.8,179.79,48,155.86,48,128v-8H208v8C208,155.86,178.2,179.79,154.25,199Z"></path></svg>
+   </button>
+   <button class="button button--secondary">
+      <span>Discover</span>
+      <svg class="button__icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"><path d="M232,104a56.06,56.06,0,0,0-56-56H136a24,24,0,0,1,24-24,8,8,0,0,0,0-16,40,40,0,0,0-40,40H80a56.06,56.06,0,0,0-56,56,16,16,0,0,0,8,13.83V128c0,35.53,33.12,62.12,59.74,83.49C103.66,221.07,120,234.18,120,240a8,8,0,0,0,16,0c0-5.82,16.34-18.93,28.26-28.51C190.88,190.12,224,163.53,224,128V117.83A16,16,0,0,0,232,104ZM80,64h96a40.06,40.06,0,0,1,40,40H40A40,40,0,0,1,80,64Zm74.25,135c-10.62,8.52-20,16-26.25,23.37-6.25-7.32-15.63-14.85-26.25-23.37C77.8,179.79,48,155.86,48,128v-8H208v8C208,155.86,178.2,179.79,154.25,199Z"></path></svg>
+   </button>
+   <button class="button button--outline">
+      <span>Discover</span>
+      <svg class="button__icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"><path d="M232,104a56.06,56.06,0,0,0-56-56H136a24,24,0,0,1,24-24,8,8,0,0,0,0-16,40,40,0,0,0-40,40H80a56.06,56.06,0,0,0-56,56,16,16,0,0,0,8,13.83V128c0,35.53,33.12,62.12,59.74,83.49C103.66,221.07,120,234.18,120,240a8,8,0,0,0,16,0c0-5.82,16.34-18.93,28.26-28.51C190.88,190.12,224,163.53,224,128V117.83A16,16,0,0,0,232,104ZM80,64h96a40.06,40.06,0,0,1,40,40H40A40,40,0,0,1,80,64Zm74.25,135c-10.62,8.52-20,16-26.25,23.37-6.25-7.32-15.63-14.85-26.25-23.37C77.8,179.79,48,155.86,48,128v-8H208v8C208,155.86,178.2,179.79,154.25,199Z"></path></svg>
+   </button>
+   <button class="button button--ghost">
+      <span>Discover</span>
+      <svg class="button__icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"><path d="M232,104a56.06,56.06,0,0,0-56-56H136a24,24,0,0,1,24-24,8,8,0,0,0,0-16,40,40,0,0,0-40,40H80a56.06,56.06,0,0,0-56,56,16,16,0,0,0,8,13.83V128c0,35.53,33.12,62.12,59.74,83.49C103.66,221.07,120,234.18,120,240a8,8,0,0,0,16,0c0-5.82,16.34-18.93,28.26-28.51C190.88,190.12,224,163.53,224,128V117.83A16,16,0,0,0,232,104ZM80,64h96a40.06,40.06,0,0,1,40,40H40A40,40,0,0,1,80,64Zm74.25,135c-10.62,8.52-20,16-26.25,23.37-6.25-7.32-15.63-14.85-26.25-23.37C77.8,179.79,48,155.86,48,128v-8H208v8C208,155.86,178.2,179.79,154.25,199Z"></path></svg>
+   </button>
+   <button class="button button--icon">
+      <span class="sr-only">Discover</span>
+      <svg class="button__icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"><path d="M232,104a56.06,56.06,0,0,0-56-56H136a24,24,0,0,1,24-24,8,8,0,0,0,0-16,40,40,0,0,0-40,40H80a56.06,56.06,0,0,0-56,56,16,16,0,0,0,8,13.83V128c0,35.53,33.12,62.12,59.74,83.49C103.66,221.07,120,234.18,120,240a8,8,0,0,0,16,0c0-5.82,16.34-18.93,28.26-28.51C190.88,190.12,224,163.53,224,128V117.83A16,16,0,0,0,232,104ZM80,64h96a40.06,40.06,0,0,1,40,40H40A40,40,0,0,1,80,64Zm74.25,135c-10.62,8.52-20,16-26.25,23.37-6.25-7.32-15.63-14.85-26.25-23.37C77.8,179.79,48,155.86,48,128v-8H208v8C208,155.86,178.2,179.79,154.25,199Z"></path></svg>
+   </button>
+   <button class="button button--compact">
+      <span>Discover</span>
+      <svg class="button__icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"><path d="M232,104a56.06,56.06,0,0,0-56-56H136a24,24,0,0,1,24-24,8,8,0,0,0,0-16,40,40,0,0,0-40,40H80a56.06,56.06,0,0,0-56,56,16,16,0,0,0,8,13.83V128c0,35.53,33.12,62.12,59.74,83.49C103.66,221.07,120,234.18,120,240a8,8,0,0,0,16,0c0-5.82,16.34-18.93,28.26-28.51C190.88,190.12,224,163.53,224,128V117.83A16,16,0,0,0,232,104ZM80,64h96a40.06,40.06,0,0,1,40,40H40A40,40,0,0,1,80,64Zm74.25,135c-10.62,8.52-20,16-26.25,23.37-6.25-7.32-15.63-14.85-26.25-23.37C77.8,179.79,48,155.86,48,128v-8H208v8C208,155.86,178.2,179.79,154.25,199Z"></path></svg>
+   </button>
+  </div>
+</body>
+
+</html>
+
+```
+```css /colors.css file=src/styles/base/_colors.scss hidden
+```
+```css /variables.css file=src/styles/base/_variables.scss hidden
+```
+```css /base.css hidden
+:root {
+   --color-slate-800: hsl(227.1 29.5% 16.7%);
+}
+
+body {
+   background: var(--color-slate-800);
+   block-size: 100vh;
+   display: grid;
+   margin: 0;
+   place-items: center;
+}
+
+.grid {
+   display: grid;
+   gap: 8vmin;
+   padding: 8vmin;
+   place-items: center;
+}
+
+button {
+   appearance: none;
+   background: none;
+   border: none;
+   border-radius: 0.25rem;
+   cursor: pointer;
+   font-family: 'Silka', sans-serif;
+   margin: 0;
+   padding: 0;
+
+   display: grid;
+   font-weight: 700;
+   gap: 0.5rem;
+   grid-auto-flow: column;
+   letter-spacing: 0.1em;
+   place-items: center;
+   text-transform: uppercase;
+}
+
+.sr-only {
+   border: 0;
+   clip: rect(0 0 0 0);
+   height: 1px;
+   margin: -1px;
+   overflow: hidden;
+   padding: 0;
+   position: absolute;
+   width: 1px;
+}
+
+.button__icon {
+   aspect-ratio: 1;
+   block-size: 1.25em;
+}
+
+```
+```css /styles.css active
+.button {
+   --_button-background-color:               var(--button-background-color, var(--color-purple-800));
+   --_button-background-color--hover:        var(--button-background-color--hover, var(--_button-color));
+   --_button-border-color:                   var(--button-border-color, var(--color-purple-600));
+   --_button-border-color--hover:            var(--button-border-color--hover, var(--color-purple-400));
+   --_button-border-radius:                  var(--button-border-radius, 0.25rem);
+   --_button-border-width:                   var(--button-border-width, 2px);
+   --_button-color:                          var(--button-color, var(--color-purple-50));
+   --_button-color--hover:                   var(--button-color--hover, var(--_button-background-color));
+   --_button-duration:                       var(--button-duration, 300ms);
+   --_button-easing:                         var(--button-easing, ease-in-out);
+   --_button-font-size:                      var(--button-font-size, 1.25rem);
+   --_button-font-weight:                    var(--button-font-weight, 700);
+   --_button-gap:                            var(--button-gap, 0.5em);
+   --_button-grid-template-columns:          var(--button-grid-template-columns, auto);
+   --_button-icon-color:                     var(--button-icon-color, var(--_button-color));
+   --_button-icon-color--hover:              var(--button-icon-color--hover, var(--_button-color--hover));
+   --_button-icon-size:                      var(--button-icon-size, 1.25em);
+   --_button-min-inline-size:                var(--button-min-inline-size, 20ch);
+   --_button-padding-block:                  var(--button-padding-block, 0.75em);
+   --_button-padding-inline:                 var(--button-padding-inline, 1.5em);
+
+   background-color: var(--_button-background-color);
+   border: var(--_button-border-width) solid var(--_button-border-color);
+   border-radius: var(--_button-border-radius);
+   color: var(--_button-color);
+   display: grid;
+   font-family: 'Silka', sans-serif;
+   font-size: var(--_button-font-size);
+   font-weight: var(--_button-font-weight);
+   gap: var(--_button-gap);
+   margin: 0;
+   min-inline-size: var(--_button-min-inline-size);
+   padding-block: var(--_button-padding-block);
+   padding-inline: var(--_button-padding-inline);
+   place-items: center;
+   text-transform: uppercase;
+   transition:
+      background-color var(--_button-duration) var(--_button-easing),
+      border-color var(--_button-duration) var(--_button-easing),
+      color var(--_button-duration) var(--_button-easing);
+
+   &:is(:hover, :focus-visible) {
+      background-color: var(--_button-background-color--hover);
+      border-color: var(--_button-border-color--hover);
+      color: var(--_button-color--hover);
+
+      .button__icon {
+         color: var(--_button-icon-color--hover);
+      }
+   }
+
+   .button__icon {
+      block-size: var(--_button-icon-size);
+      color: var(--_button-icon-color);
+      inline-size: var(--_button-icon-size);
+      transition: color var(--_button-duration) var(--_button-easing);
+   }
+
+   /* Icon After */
+   &:has(.button__icon:where(:last-child)) {
+      --button-grid-template-columns: auto max-content;
+   }
+
+   /* Icon Before */
+   &:has(.button__icon:where(:first-child)) {
+      --button-grid-template-columns: max-content auto;
+   }
+
+   /* Secondary */
+   &:where(.button--secondary) {
+      --button-background-color: var(--color-purple-50);
+      --button-color: var(--color-purple-800);
+   }
+
+   /* Outline */
+   &:where(.button--outline) {
+      --button-background-color--hover: var(--color-purple-800);
+      --button-background-color: transparent;
+      --button-border-color: var(--_button-color);
+      --button-color--hover: var(--color-purple-50);
+   }
+
+   /* Ghost */
+   &:where(.button--ghost) {
+      --button-background-color: transparent;
+      --button-border-color--hover: var(--_button-color);
+      --button-border-color: transparent;
+      --button-color--hover: var(--color-purple-800);
+      --button-color: var(--color-purple-50);
+   }
+
+   /* Icon Only */
+   &:where(.button--icon) {
+      --button-grid-template-columns: max-content;
+      --button-min-inline-size: 0;
+      --button-padding-inline: var(--_button-padding-block);
+   }
+
+   /* Compact */
+   &:where(.button--compact) {
+      --button-font-size: 0.875rem;
+      --button-min-inline-size: 0;
+      --button-padding-block: 0.5em;
+      --button-padding-inline: 0.75em;
+   }
+}
+
+```
+</Sandbox>

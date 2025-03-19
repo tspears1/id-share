@@ -1,7 +1,7 @@
 ---
 isDraft: false
-slug: fallbacks
-title: Fallbacks
+slug: fallbacks-placeholders
+title: Fallbacks & Placeholders
 series: css-variables
 sortOrder: 4
 author: Tim Spears
@@ -13,7 +13,7 @@ import Alert from '@components/molecules/Alert/Alert.astro'
 
 ## Fallbacks
 
-Variable fallback are IMO the most **powerful feature** of CSS variables.
+Variable fallbacks are IMO the most **powerful feature** of CSS variables.
 
 In this context, they don't refer to _brower support_ like we often think when we hear the term.
 
@@ -168,7 +168,9 @@ _Just don't get carried away._
 --article-block-spacing: var(--site-block-spacing, var(--bu-block-spacing, var(--size-fluid-5, 4rem)));
 ```
 
-The fallback's true power comes into play when you leverage **UNDEFINED** variables as the fallback.
+## Placeholders
+
+The fallback's true power comes into play when you leverage **UNDEFINED** variables, or **Placeholders**, with a fallback.
 
 <Sandbox client:load>
 ```html /index.html
@@ -266,12 +268,12 @@ button {
 - Retains complex **functionality** established, especially in regards to STATE. \
 _we'll see an example with state change later_
 
-### Fallbacks vs The Cascade
+### Placeholders vs The Cascade
 Unlike Sass variables, which are processed during **build**, CSS variables are processed client-side during **page-load** within the cascade.
 Which means they are only computed when they are **needed**, not stored and reused throughout the stylesheet.
 
-Fallbacks set on a parent element and then defined on a child element will **NOT** modify the parent.
-Undefined fallback variables can only be defined on the establishing element or higher in the cascade.
+Placeholders set on a parent element and then defined on a child element will **NOT** modify the parent.
+Placeholder variables can only be defined on the establishing element or higher in the cascade.
 
 <Sandbox client:load>
 ```html /index.html
@@ -366,14 +368,14 @@ button {
 </Sandbox>
 
 <Alert title="Thoughts on naming fallback variables" variant="warning">
-   At all cost you should avoid naming fallback variables with phrases like:\
+   At all cost you should avoid naming fallbacks and placeholders with phrases like:\
    `-default`
    `-fallback`
-   `-placeholde`
+   `-placeholder`
    `-override`
 
    These names are too generic and can lead to confusion.
-   And in the case of undefined fallbacks, you don't want to give the fallback variable the name of the variable it is overriding.
+   And in the case of placeholders, you don't want to give the fallback variable the exact name of the variable it is overriding for fear of creating an infinite loop.
 
    In a future section we'll look at **Private Variables** and how they can be used to solve this problem.
 </Alert>
