@@ -206,6 +206,7 @@ body {
    background: var(--color-slate-800);
    block-size: 100vh;
    display: grid;
+   margin: 0;
    place-items: center;
 }
 
@@ -266,6 +267,9 @@ button {
 _we'll see an example with state change later_
 
 ### Fallbacks vs The Cascade
+Unlike Sass variables, which are processed during **build**, CSS variables are processed client-side during **page-load** within the cascade.
+Which means they are only computed when they are **needed**, not stored and reused throughout the stylesheet.
+
 Fallbacks set on a parent element and then defined on a child element will **NOT** modify the parent.
 Undefined fallback variables can only be defined on the establishing element or higher in the cascade.
 
@@ -305,6 +309,7 @@ body {
    background: var(--color-slate-800);
    block-size: 100vh;
    display: grid;
+   margin: 0;
    place-items: center;
 }
 
