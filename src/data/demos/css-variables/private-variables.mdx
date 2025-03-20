@@ -18,7 +18,7 @@ The name comes from Lea Verou's [Custom properties with defaults: 3+1 strategies
 
 > My preferred solution is what I call **pseudo-private custom properties**. You use a different property internally than the one you expose, which is set to the one you expose plus the fallback...
 
-CSS wizard, [Adam Argyle](https://argyle.ink/announcing-the-mini-web-machines-series), might refer to these as a `mini web machine`!
+( CSS wizard, [Adam Argyle](https://argyle.ink/announcing-the-mini-web-machines-series), might refer to these as a `mini web machine`! )
 
 The easiest way to identify a private variable is to add an `_` underscore at the start of the variable name:
 
@@ -247,3 +247,9 @@ button {
 
 ```
 </Sandbox>
+
+## Private Variables...
+
+- Are probably never getting redefined.
+- Should not be used outside of the scope of the element they are declared on.
+- Can be used as the value for OTHER private variables in the scope, which is great for STATE, calculations or using shared variables for child elements.

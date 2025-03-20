@@ -3,7 +3,7 @@ isDraft: false
 slug: css-variable-resources
 title: Resources
 series: css-variables
-sortOrder: 9
+sortOrder: 10
 author: Tim Spears
 pubDate: 2025-03-19
 banner: https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExOW9tczk1aWxjN21vcDZuNTA5d3k2Y2g2N3ZlZGQzc3plMW12NHE3NCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/XjDZoIXRpaJjZY6VFI/giphy.gif
@@ -11,16 +11,30 @@ banner: https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExOW9tczk1aWxjN21vcDZuNT
 
 ## Helpful Links
 
--
--
--
+- [Ahmad Shadeed's CSS Variables 101](https://ishadeed.com/article/css-vars-101/)
+- [Lea Verou's Custom properties with defaults: 3+1 strategies](https://lea.verou.me/blog/2021/10/custom-properties-with-defaults/)
+- [`@property`: Next-gen CSS variables now with universal browser support ](https://web.dev/blog/at-property-baseline)
 
 
 ## Vocabulary
 
-- declared
-- defined
-- placeholder or undefined
-- fallback or default
-- invalid value
-- private variables
+## **Undefined**
+A variable that does not have a value yet.
+
+## **Defined**
+A named variable with a value attached to it.
+
+### **Declared**
+A named variable that potentially hasn't been defined yet.
+
+## **Placeholder or Override**
+An undefined variable used as a value with a fallback value.
+
+### **Fallback or Default**
+An additional value added to the `var()` function to use if the first value is undefined.
+
+### **Invalid Value**
+A value that at computed time does not match the type/context of the property it's assigned to.
+
+### **Private Variables**
+A naming convention for variables where the scope is limited to the element they are declared on.

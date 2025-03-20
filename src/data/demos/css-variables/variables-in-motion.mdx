@@ -9,3 +9,259 @@ pubDate: 2025-03-12
 banner: https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExZWNuN3U5dWo0eW1wOTA0MzB6NnNydnN6bG5wOW91ems2czBiOTI3dCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l2QDYC9XloYXUGs36/giphy.gif
 ---
 import { Sandbox } from '@components/molecules/Sandbox/Sandbox.jsx'
+
+We've said multiple times at this point that CSS Variables lack assigned Type and/or Context. So using CSS `animation` or `transition` properties to animate CSS variables is a bit of a challenge.
+
+## Out of the Box
+As long as we are animating/transitioning a **standard CSS property**, we can use a CSS Variable as the value of the property.
+
+<Sandbox client:load>
+```html /index.html
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>ID Sandbox</title>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="/base.css" />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/colors.css" />
+  <link rel="stylesheet" href="/variables.css" />
+</head>
+
+<body>
+  <div class="grid">
+    <button class="button">
+      <span>Explore</span>
+      <svg class="button__icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"><path d="M152,224a8,8,0,0,1-8,8H112a8,8,0,0,1,0-16h32A8,8,0,0,1,152,224ZM128,112a12,12,0,1,0-12-12A12,12,0,0,0,128,112Zm95.62,43.83-12.36,55.63a16,16,0,0,1-25.51,9.11L158.51,200h-61L70.25,220.57a16,16,0,0,1-25.51-9.11L32.38,155.83a16.09,16.09,0,0,1,3.32-13.71l28.56-34.26a123.07,123.07,0,0,1,8.57-36.67c12.9-32.34,36-52.63,45.37-59.85a16,16,0,0,1,19.6,0c9.34,7.22,32.47,27.51,45.37,59.85a123.07,123.07,0,0,1,8.57,36.67l28.56,34.26A16.09,16.09,0,0,1,223.62,155.83ZM99.43,184h57.14c21.12-37.54,25.07-73.48,11.74-106.88C156.55,47.64,134.49,29,128,24c-6.51,5-28.57,23.64-40.33,53.12C74.36,110.52,78.31,146.46,99.43,184Zm-15,5.85Q68.28,160.5,64.83,132.16L48,152.36,60.36,208l.18-.13ZM208,152.36l-16.83-20.2q-3.42,28.28-19.56,57.69l23.85,18,.18.13Z"></path></svg>
+   </button>
+   <button class="button button--flash">
+      <span>Explore</span>
+      <svg class="button__icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"><path d="M152,224a8,8,0,0,1-8,8H112a8,8,0,0,1,0-16h32A8,8,0,0,1,152,224ZM128,112a12,12,0,1,0-12-12A12,12,0,0,0,128,112Zm95.62,43.83-12.36,55.63a16,16,0,0,1-25.51,9.11L158.51,200h-61L70.25,220.57a16,16,0,0,1-25.51-9.11L32.38,155.83a16.09,16.09,0,0,1,3.32-13.71l28.56-34.26a123.07,123.07,0,0,1,8.57-36.67c12.9-32.34,36-52.63,45.37-59.85a16,16,0,0,1,19.6,0c9.34,7.22,32.47,27.51,45.37,59.85a123.07,123.07,0,0,1,8.57,36.67l28.56,34.26A16.09,16.09,0,0,1,223.62,155.83ZM99.43,184h57.14c21.12-37.54,25.07-73.48,11.74-106.88C156.55,47.64,134.49,29,128,24c-6.51,5-28.57,23.64-40.33,53.12C74.36,110.52,78.31,146.46,99.43,184Zm-15,5.85Q68.28,160.5,64.83,132.16L48,152.36,60.36,208l.18-.13ZM208,152.36l-16.83-20.2q-3.42,28.28-19.56,57.69l23.85,18,.18.13Z"></path></svg>
+   </button>
+  </div>
+</body>
+
+</html>
+```
+```css /colors.css file=src/styles/base/_colors.scss hidden
+```
+```css /variables.css file=src/styles/base/_variables.scss hidden
+```
+```css /base.css hidden
+:root {
+   --color-slate-800: hsl(227.1 29.5% 16.7%);
+}
+
+body {
+   background: var(--color-slate-800);
+   block-size: 100vh;
+   display: grid;
+   margin: 0;
+   place-items: center;
+}
+
+.grid {
+   display: grid;
+   gap: 8vmin;
+   place-items: center;
+}
+
+button {
+   appearance: none;
+   background: none;
+   border: none;
+   border-radius: 0.25rem;
+   cursor: pointer;
+   font-family: 'Silka', sans-serif;
+   margin: 0;
+   padding: 0;
+
+   display: grid;
+   font-weight: 700;
+   gap: 0.5rem;
+   grid-auto-flow: column;
+   letter-spacing: 0.1em;
+   place-items: center;
+   text-transform: uppercase;
+}
+
+.button__icon {
+   aspect-ratio: 1;
+   block-size: 1.25em;
+}
+
+```
+```css /styles.css active
+:where(html) {
+   --opacity-0: 0;
+   --opacity-100: 1;
+}
+
+@keyframes fade-in {
+   from {
+      opacity: var(--opacity-0);
+   }
+   to {
+      opacity: var(--opacity-100);
+   }
+}
+
+.button {
+   --_button-background-color:       var(--button-background-color, var(--color-purple-800));
+   --_button-color:                  var(--button-color, var(--color-mono-0));
+   background: var(--button-background-color, var(--color-purple-800));
+   border: 2px solid var(--button-border-color, var(--color-purple-600));
+   color: var(--button-color, var(--color-mono-0));
+   font-size: var(--button-font-size, 1.75rem);
+   padding-block: 0.75rem;
+   padding-inline: 1.5rem;
+   transition:
+      background var(--duration-gentle) var(--ease-out-3),
+      color var(--duration-gentle) var(--ease-out-3);
+
+   &:where(:hover, :focus-visible) {
+      background: var(--_button-color);
+      color: var(--_button-background-color);
+   }
+}
+
+.button--flash {
+   animation: fade-in var(--duration-gentle) var(--ease-out-3) alternate infinite;
+}
+
+.button__icon {
+   --button-color: var(--color-amber-400);
+   color: currentColor;
+}
+```
+</Sandbox>
+
+What will **not work** is animating/transitioning the CSS Variable itself...
+
+### **Except NOW IT WILL!**
+![Spit Take](https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHpjOXJtdjg5anY5MTA5Mzl3b2VjbmQzYjdmdGZ0NngyOXNuYzFubiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/CkyV1ZWhU3oGI/giphy.gif)
+
+## Introductin the `@property` Rule
+
+The newly fully supported (July 2024) `@property` rule allows us to take our standard css variable and transform it into what Google's Una Kravet's calls an **Advanced Custom Property**:
+
+```css
+@property --color-accent {
+   syntax: '<color>';
+   inherits: false;
+   initial-value: hotpink;
+}
+```
+
+We can now assign **Type**, **Initial Value** and **Rules of Inheritance** to our properties.
+
+<Sandbox client:load>
+```html /index.html
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>ID Sandbox</title>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="/base.css" />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/colors.css" />
+</head>
+
+<body>
+   <article class="card">
+     <div class="top">
+        <span> CSS</span>
+        <h2 class="heading">@property</h2>
+     </div>
+     <p>The @property rule must include both the syntax and inherits descriptors; if either are missing, the entire @property rule is invalid and ignored. The initial-value descriptor is also required, unless the syntax is the * universal syntax definition.</p>
+  </article>
+</body>
+
+</html>
+```
+```css /colors.css file=src/styles/base/_colors.scss hidden
+```
+```css /base.css hidden
+:root {
+   --color-slate-800: hsl(227.1 29.5% 16.7%);
+}
+
+body {
+   background: hsl(var(--color-slate-800));
+  font-family: 'Source Code Pro', system-ui;
+  display: grid;
+  height: 100dvh;
+  place-content: center;
+}
+span {
+  font-weight: 700;
+  font-size: 90%;
+  color: rebeccapurple;
+  background: #e6e6faa8;
+  padding: 0 0.25em 0;
+}
+h2 {
+  font-family: 'Silka';
+  margin-top: 0.5rem;
+}
+.card {
+   background-blend-mode: color-burn;
+  display: grid;
+  gap: 2rem;
+  border-radius: 1rem;
+  max-width: 36ch;
+  padding: 2rem;
+}
+```
+```css /styles.css active
+@property --card-bg {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #c0bae8;
+}
+
+@property --shine-1 {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #ffbbc0;
+}
+
+@property --shine-2 {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #c0aecb;
+}
+
+@keyframes animate-color-1 {
+  from {
+    --shine-1: initial;
+  }
+  to {
+    --shine-1: var(--color-orange-500);
+  }
+}
+
+@keyframes animate-color-2 {
+  from {
+    --shine-2: initial;
+  }
+  to {
+    --shine-2: var(--color-pink-400);
+  }
+}
+
+.card {
+   background: radial-gradient(
+      300px circle at 55% 60% in oklab,
+      var(--shine-2), transparent 100% 100%
+   ), radial-gradient(
+      farthest-side circle at 75% 30% in oklab,
+      var(--shine-1) 0%, var(--card-bg) 100%
+   );
+   animation: animate-color-1 3s infinite linear alternate, 5s animate-color-2 1s infinite linear alternate;
+}
+
+```
+</Sandbox>

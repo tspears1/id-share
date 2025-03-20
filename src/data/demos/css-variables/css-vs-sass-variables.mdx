@@ -9,3 +9,116 @@ pubDate: 2025-03-12
 banner: https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExanRpd3JyMGF6bWZqN290Z28zZzh1ZXRqbWowY24xZzRlY3R5ODY1YSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/FyU7hfXpfgbu0/giphy.gif
 ---
 import { Sandbox } from '@components/molecules/Sandbox/Sandbox.jsx'
+
+With some many recent advancements in CSS, there's certainly a camp of people ready to throw out pre-proccesors like SASS/SCSS or LESS and go completely **vanilla**.
+We're close but IMO not _quite_ there yet.
+
+There are a few things that CSS on it's own still **can't give us**:
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(18ch, 1fr)); gap: 1rem;">
+<div>
+- ~Variables~ 😎
+- ~Nesting~ 🪺
+- ~Calculations~ 🧮
+- ~Trig Functions~ 🤓
+- ~Color Functions~ 🎨
+</div>
+<div>
+- Variables in Media Queries 🤔
+- Lists ☹️
+- Custom Functions 😒
+- Mixins 🥺
+- Conditionals 😩
+</div>
+<div>
+![Not bad](https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExNDQwMG05aXFhYnhoMGQ5ZTlveGduZHExd3g5amo0dzk3M243d25vMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/13ZHjidRzoi7n2/giphy.gif)
+</div>
+</div>
+
+## That's actually a pretty impressive list!
+
+However, some features, like `color-functions` just barely have full support and certainly not enough that I would start to use them in production.
+
+As a rule of thumb I tend to use CSS Variables over SCSS variables for everything **except** for `colors` & `breakpoints`.
+
+## Colors
+
+There are still so many incredible color functions in SCSS that we don't have yet in modern CSS _or at least not fully supported_. So I typically create all my colors as SCS Variables first, that way they're available if i need them.
+
+**However**, I still establish them in a `list` that I can then loop through a mixin to generate CSS Variable versions of each. 95% of the time I'm actually just using the CSS Variable version but its incredibly useful to star them with SCSS.
+
+```scss
+$colors: (
+	sky-blue: 189 97% 46%,
+	dark-blue: 195 47% 15%,
+	bu-red: 0 100% 40%,
+	off-white: 180 6% 97%,
+	navy-blue: 203 25% 17%,
+	'black': 0 0% 0%,
+	'white': 0 0% 100%,
+);
+
+// Generate CSS Variables
+:where(html) {
+   // ex. --color-sky-blue: hsl(189 97% 46%);
+   @include generate-color-variables($colors);
+
+   // ex. --color-sky-blue-hsl: 189 97% 46%;
+   @include generate-color-variables-hsl($colors);
+}
+
+// Then if I REALLY need to use the SCSS variable:
+.card {
+   background-color: luminance( hsl( map.get( $colors, sky-blue ) ) );
+}
+```
+
+## Breakpoints
+
+I follow a similar pattern with `breakpoints` - at this point in time you can not use css vars as the value in media queries ie `@media (min-inline-size: var(--breakpoint-xs)) { ... }`.
+
+There are specs to change this, as well as add support for querying BY style/variable 🤯 \
+ie. `@container style(--theme: dark) { ... }`
+
+So for now breakpoints also get defined as SCSS variables. But again I find it useful to store them in css variables as well.
+
+```scss
+$breakpoints: (
+   base: 0,
+   xs: 320px,
+   sm: 640px,
+   md: 768px,
+   lg: 1024px,
+   xl: 1280px
+)
+
+:where(html) {
+   // ex. --breakpoint-xs: 320px;
+   @include mix.generate-breakpoint-widths(config.$breakpoints);
+   // ex.
+   // @media (min-width: 320px) {
+   //    --breakpoint-min-width: 320px;
+   //    --breakpoint-max-width: 639px;
+   // }
+   @include mix.generate-active-breakpoint-variables(config.$breakpoints);
+}
+```
+
+## Functions & Mixins
+So if all the variables are CSS Variables, how do we use them in SCSS functions and mixins?
+
+With **functions**, we often can't - because the css var is compiled on the client-side and the function is executed during the build. (But I also find myself using functions less and less).
+
+However most **mixins** aren't running any kind of calculations on build, so we can in fact use CSS Variables as arguments, BUT we have to _escape_ or **interpolate** the values:
+
+```scss
+.card {
+   @include heading-1($line-height: #{var(--line-height-1)});
+}
+```
+
+We can also store CSS Variables as SCSS Variables _very useful for integrating them into Responsive foundation_:
+
+```scss
+$font-family-serif: #{var(--font-heading)};
+```

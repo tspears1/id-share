@@ -181,6 +181,50 @@ border-radius: var(--global-border-radius);
 ```
 </Sandbox>
 
+## Invalid Variables vs Invalid Property values
+
+You may have seen in CSS when implementing a newer feature or unit type this pattern;
+
+```css
+.card {
+   /* We can assign the card a default height.. */
+   height: 80vh;
+   /* but let's say we want the browser to use the Line Height property if it is supported */
+   height: 80lh;
+}
+```
+
+### If the browser does not support the `lh` unit, what will the card's height be?
+
+<details>
+<summary>!! Spoiler Warning !!</summary>
+If the browser does NOT support Line Height, it will use the default value of 80vh
+</details>
+
+CSS Variables _by default_ do not work like this because they lack context. If we followed the same pattern for CSS Variables, it would end up throwing out both declarations, because by the time it sees the second declaration, it discards the first.
+
+```css
+body {
+   color: black;
+}
+
+.card {
+   color: var(--card-color-primary, gray);
+}
+
+.card--jedi {
+   --color-primary: yellow;
+   --color-primary: 16px; /* invalid */
+}
+```
+### So what color is the card's text?
+
+<details>
+<summary>!! Spoiler Warning !!</summary>
+In the example above the card `color` property would be `black` because the first use was discarded and the second use is invalid, voiding the entire declaration and it's fallback value.
+</details>
+
+
 <div style="text-align: center; margin: 0 auto;">
 ![Confused woman](https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNDNwZ2cwaWtlcmo3b3E2MXBscDRkdW1iemhhaHN6MTVsZnRiNjVhYSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/WRQBXSCnEFJIuxktnw/giphy.gif)
 </div>

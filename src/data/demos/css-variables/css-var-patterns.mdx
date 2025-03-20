@@ -1,0 +1,113 @@
+---
+isDraft: false
+slug: css-variable-patterns
+title: Patterns & Use Cases
+series: css-variables
+sortOrder: 9
+author: Tim Spears
+pubDate: 2025-03-19
+banner: https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExMDU2c2pkc3lnMzl4aDl0YzVkYmFhdGdtZ2RlOHN0dzgwcjY1MHdhdSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/lXu72d4iKwqek/giphy.gif
+---
+
+## Theme classes
+
+```scss
+// styles/abstracts/mixins/_theme.scss ===============================
+@mixin theme-light() {
+   --color-surface-1: var(--color-slate-50);
+   --color-surface-2: var(--color-slate-200);
+   --color-surface-3: var(--color-slate-400);
+   --color-text-1:    var(--color-slate-950);
+   --color-text-2:    var(--color-slate-900);
+   --color-text-3:    var(--color-slate-800);
+   --color-accent:    var(--color-pink-400);
+}
+
+@mixin theme-dark() {
+   --color-surface-1: var(--color-slate-950);
+   --color-surface-2: var(--color-slate-900);
+   --color-surface-3: var(--color-slate-800);
+   --color-text-1:    var(--color-slate-50);
+   --color-text-2:    var(--color-slate-100);
+   --color-text-3:    var(--color-slate-200);
+   --color-accent:    var(--color-pink-600);
+}
+
+@mixin theme-green() {
+   --color-surface-1: var(--color-green-50);
+   --color-surface-2: var(--color-green-100);
+   --color-surface-3: var(--color-green-200);
+   --color-text-1:    var(--color-green-950);
+   --color-text-2:    var(--color-green-900);
+   --color-text-3:    var(--color-green-800);
+   --color-accent:    var(--color-green-400);
+}
+
+// styles/base/_themes.scss ===============================
+:where(html) {
+   @include theme-light();
+}
+
+:where([data-theme='dark'], .theme--dark) {
+   @include theme-dark();
+}
+
+:where([data-theme='green'], .theme--green) {
+   @include theme-green();
+}
+
+// styles/atoms/_button.scss ===============================
+.button {
+   background: var(--color-surface-3);
+   color: var(--color-accent);
+}
+
+// styles/molecules/_card.scss ===============================
+.card {
+   background: var(--color-surface-1);
+   color: var(--color-text-1);
+
+   .card__header {
+      background: var(--color-surface-2);
+      color: var(--color-text-2);
+   }
+}
+
+// styles/templates/bu-landing-pages.scss ===============================
+.template-bu-landing-page {
+   section {
+      background: var(--color-surface-1);
+      color: var(--color-text-1);
+   }
+
+   section:nth-child(even) {
+      @include theme-dark();
+   }
+}
+```
+
+
+## Inline styles - child index for stagger
+CSS Variables can also be defined as an inline style either directly on the HTML markup or with Javascript:
+
+```html
+<ul class="cards">
+   <li class="card" style="--index: 0;"> ... </li>
+   <li class="card" style="--index: 1;"> ... </li>
+   <li class="card" style="--index: 2;"> ... </li>
+   <li class="card" style="--index: 3;"> ... </li>
+</ul>
+```
+
+```css
+.card {
+   opacity: 0;
+   transition: opacity var(--duration-fast) var(--ease-out-3) calc(var(--duration-fast) * var(--index));
+
+   &:is(.card--in-view) {
+      opacity: 1;
+   }
+}
+```
+
+
