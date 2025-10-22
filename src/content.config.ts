@@ -28,6 +28,7 @@ const series = defineCollection({
    schema: z.object({
       title: z.string(),
       slug: z.string(),
+      hidden: z.boolean().optional()
    })
 })
 

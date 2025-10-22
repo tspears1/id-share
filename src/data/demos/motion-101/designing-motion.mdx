@@ -1,0 +1,74 @@
+---
+isDraft: false
+slug: designing-motion
+title: Designing Motion
+series: motion-101
+sortOrder: 3
+author: Tim Spears
+pubDate: 2025-09-24
+banner: https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExYmlndDQ2YWljODRicm56OXcxc2h2MnZhdmdwYTh0aHFzcmw5MHRpdCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/1jaMg5Pjk9t12CTUpV/giphy.gif
+---
+## So how do these concept translate to code?
+
+Once you've established _tone_ and _feel_ of your website, it's time to start thinking about how to bring that motion to life.
+
+<div style="font-size: var(--font-size-xl);">
+It's time for **CHOREOGRAPHY**!
+</div>
+
+## Oh no, not the theatre again...
+
+When starting to think more technically about how to choreograph it's helpful to break motion down into a kinetic system:
+
+<div style="font-size: var(--font-size-xl);">
+- Duration ⏳
+- Direction 🧭
+- Easing / Rate of Change 🌊
+- Delay / Stagger 🪜
+- Repetition 🔁
+- Origin 🎯
+</div>
+
+These building blocks also happen to coinside with actual CSS properties of animation:
+
+<div style="font-size: var(--font-size-xl);">
+- `animation-duration` - Duration
+- `animation-direction` - Direction
+- `animation-timing-function` - Easing / Rate of Change
+- `animation-delay` - Delay / Stagger
+- `animation-iteration-count` - Repetition
+</div>
+
+## WHAT DO THESE THINGS MEAN??
+
+### _Duration_
+The total span of time a transition / animation takes from start to finish. It sets the temporal footprint and perceived weight of the motion.
+In web design it's often expressed in seconds or milliseconds (my personal preference).
+
+### _Direction_
+Simply, the temporal flow or trajectory of the motion. Often indicated by `forwards`, `backwards`, or `alternate`.
+
+### _Easing / Rate of Change_
+Often expressed as a mathmatical function that describes the speed and acceleration of the motion over the established duration.
+We'll cover this more in the next section.
+
+### _Delay / Stagger_
+A delay refers to the time between the start of one motion and the start of the next.
+A stagger is a series of delays usually applied to a collection of elements that are animated together.
+
+### _Repetition_
+Does the motion play once, loop forever, or repeat a set number of times?
+How can repetition or the lack thereof, reinforce our storytelling?
+
+### _Origin_
+When i think of origin, I'm reffering to the point in space and shape of the element at the start of the motion. Depending on an element's origin, a powerful **distance** is created between two values.
+
+
+## I thought we were talking about ACTION? These all sould like TIME!
+
+At it's core, motion is **movement/action** through **time**. So it makes sense that we often think about it in context to a _TIMELINE_:
+a representation of the sequence of events from start to finish, often including **keyframes** or changes in state.
+
+<div style="text-align: center; margin: 0 auto;">
+![Rive Timeline](https://techtalk.intersec.com/2023/05/hackathon-0x0c-rive-a-state-machine-animation-builder/timeline.png)
+</div>

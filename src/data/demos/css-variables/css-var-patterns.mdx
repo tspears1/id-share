@@ -44,7 +44,7 @@ banner: https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExMDU2c2pkc3lnMzl4aDl0Yz
 }
 
 // styles/base/_themes.scss ===============================
-:where(html) {
+:where(html), :where([data-theme='light'], .theme--light) {
    @include theme-light();
 }
 

@@ -1,0 +1,56 @@
+---
+isDraft: false
+slug: easing
+title: Easing
+series: motion-101
+sortOrder: 4
+author: Tim Spears
+pubDate: 2025-09-24
+banner: https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExZGZtazVhbjhyNGNwbWh1emJ6YXh6ZDM2ZG1sbGs2cDd3Mmw5eHp4NSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xjaZth1fwdztiMX1ed/giphy.gif
+---
+
+## This is where the ~magic~ MATH happens ✨
+
+All the tools of choreography work together to shape the expression we outlined with the Eight Efforts. In practice, easing is the _expressive core_ of the motion parameters. The easing function you choose profoundly influences how duration, delay, direction, repetition, and origin feel.
+
+### What is an easing function?
+
+An easing function is a mathematical function that maps normalized time to normalized progress, shaping speed and acceleration across a set duration.
+
+Put simply: it tells you how motion unfolds over time.
+- **Duration**: total time T
+- **Distance**: total change D
+- **Easing**: E(u) where u = t / T and E returns a value in [0, 1]
+
+```js
+// Position over time with easing
+const position = (t, { origin, distance, duration, easing }) => origin + distance * easing(t / duration)
+```
+
+<div style="text-align: center; margin: 0 auto;">
+![man screaming help](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOWFwanNjMWZnZHFzeGhhdm9pempuOWZ4b3dicXN1anY4dG9zMmp5NiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/ygCtKUnKEW5F6LruQd/giphy.gif)
+</div>
+
+## FINE. Let's simplify.
+
+In CSS and JS we often see easing represented as either a `linear` function or a `bezier-curve` function.
+
+Let's talk about `bezier-curves` first.
+
+### Bezier Curves
+
+A bezier curve is a mathematical function that maps normalized time to normalized progress, shaping speed and acceleration across a set duration.
+
+Put simply: it tells you how motion unfolds over time.
+When a bezier curve has a single control point it's called a `quadratic` curve.
+When it has two control points it's called a `cubic` curve. These are the most common types of bezier curves used in motion design.
+
+- <a href="https://easings.net/" target="_blank">Easing Functions</a>
+- <a href="https://joshcollinsworth.com/demos/easing" target="_blank">Easing Playground</a>
+- <a href="https://jamie-wong.com/post/bezier-curves/" target="_blank">Bezier Curves</a>
+
+### Linear Function
+The linear function is a fairly new CSS function (full support JUST happened in 2023) that provides a simple way to create linear easing.
+
+- <a href="https://developer.chrome.com/docs/css-ui/css-linear-easing-function/" target="_blank">Linear Function</a>
+- <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/easing-function/linear" target="_blank">Linear Function MDN</a>

@@ -5,6 +5,17 @@
    },
    {
       "title": "CSS Grid",
-      "slug": "css-grid"
+      "slug": "css-grid",
+      "hidden": true
+   },
+   {
+      "title": "Modern Javascript",
+      "slug": "modern-javascript",
+      "hidden": true
+   },
+   {
+      "title": "Motion 101",
+      "slug": "motion-101",
+      "hidden": false
    }
 ]

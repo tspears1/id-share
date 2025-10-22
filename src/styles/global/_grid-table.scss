@@ -1,0 +1,9 @@
+.grid-table {
+   display: grid;
+   grid-template-columns: var(--grid-table-columns, auto);
+
+   span {
+      border: 1px solid hsl(var(--color-syntax-keyword) /0.2);
+      padding: 0.25em;
+   }
+}

@@ -8,7 +8,4 @@ import { remarkSandpack } from 'remark-sandpack';
 // https://astro.build/config
 export default defineConfig({
   integrations: [react(), mdx({ remarkPlugins: [[remarkSandpack, { componentName: 'Sandbox' }]]}), icon()],
-  experimental: {
-    svg: true,
-  },
 });

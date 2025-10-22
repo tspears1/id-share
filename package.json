@@ -9,13 +9,13 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/mdx": "^4.2.0",
-    "@astrojs/react": "^4.2.1",
+    "@astrojs/mdx": "^4.2.6",
+    "@astrojs/react": "^4.2.7",
     "@codesandbox/sandpack-react": "^2.20.0",
     "@iconify-json/ph": "^1.2.2",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
-    "astro": "^5.5.2",
+    "astro": "^5.7.12",
     "astro-icon": "^1.1.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

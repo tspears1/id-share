@@ -7,7 +7,7 @@ import ArticleBanner from '@components/molecules/ArticleBanner/ArticleBanner.ast
 import { getCollection } from 'astro:content';
 
 // Data ===============================================
-const allSeries = await getCollection('series');
+let allSeries = await getCollection('series')
 ---
 
 <Layout>
@@ -15,7 +15,7 @@ const allSeries = await getCollection('series');
       <ArticleBanner title='Demos' />
 		<div class="inner">
 			<ul>
-				{allSeries.map(async (series) => {
+				{allSeries.filter(series => !series.data.hidden).map(async (series) => {
 					return (
 						<li class="card">
 							<h3>

@@ -2,6 +2,10 @@
   --site-padding-inline: var(--size-fluid-5);
 }
 
+@view-transition {
+	navigation: auto;
+}
+
 body {
   background: hsl(var(--color-surface-0));
   color: hsl(var(--color-text-0));
@@ -81,14 +85,18 @@ blockquote {
 
   :is(strong) {
     border: none;
-    color: hsl(var(--color-syntax-keyword));
+    color: hsl(var(--color-syntax-string));
     padding: 0;
+  }
+
+  :is(em) {
+    padding: 0 0.5em;
   }
 
   :where(:not(cite, cite *)) {
     font-size: var(--heading-3);
     font-weight: var(--font-weight-black);
-    line-height: var(--leading-tight);
+    line-height: var(--leading-snug);
     max-inline-size: 45ch;
   }
 
