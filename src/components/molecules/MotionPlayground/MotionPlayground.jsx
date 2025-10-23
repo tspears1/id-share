@@ -1,5 +1,5 @@
 import { Pane } from "tweakpane";
-import { animate, createScope, stagger, eases } from "animejs";
+import { animate, createScope, eases, stagger } from "animejs";
 import { useEffect, useRef, useState } from "react";
 
 const CARDS = 3;
@@ -29,12 +29,12 @@ const PROPERTIES = [
 ];
 
 const PROPERTY_DEFAULTS = {
-   y: { start: "30vb", end: '0px' },
-   x: { start: "-5vi", end: '0px' },
-   opacity: { start: '0', end: '1' },
-   scale: { start: '0.8', end: '1' },
+   y: { start: "30vb", end: "0px" },
+   x: { start: "-5vi", end: "0px" },
+   opacity: { start: "0", end: "1" },
+   scale: { start: "0.8", end: "1" },
    rotate: { start: "15deg", end: "0deg" },
-}
+};
 
 const EASINGS = [
    { value: "linear", text: "Linear" },
@@ -59,16 +59,44 @@ const EASINGS = [
    { value: "inCirc", text: "easeInCirc" },
    { value: "outCirc", text: "easeOutCirc" },
    { value: "inOutCirc", text: "easeInOutCirc" },
-   { value: 'inBack', text: 'easeInBack' },
-   { value: 'outBack', text: 'easeOutBack' },
-   { value: 'inOutBack', text: 'easeInOutBack' },
-   { value: 'inBounce', text: 'easeInBounce' },
-   { value: 'outBounce', text: 'easeOutBounce' },
-   { value: 'inOutBounce', text: 'easeInOutBounce' },
-   { value: 'inElastic', text: 'easeInElastic' },
-   { value: 'outElastic', text: 'easeOutElastic' },
-   { value: 'inOutElastic', text: 'easeInOutElastic' },
+   { value: "inBack", text: "easeInBack" },
+   { value: "outBack", text: "easeOutBack" },
+   { value: "inOutBack", text: "easeInOutBack" },
+   { value: "inBounce", text: "easeInBounce" },
+   { value: "outBounce", text: "easeOutBounce" },
+   { value: "inOutBounce", text: "easeInOutBounce" },
+   { value: "inElastic", text: "easeInElastic" },
+   { value: "outElastic", text: "easeOutElastic" },
+   { value: "inOutElastic", text: "easeInOutElastic" },
 ];
+
+const getParamDefaults = () => ({
+   mode: "individual",
+   stagger: 150,
+   motion: [
+      {
+         duration: 300,
+         property: "y",
+         start: "30vb",
+         end: "0px",
+         easing: "linear",
+      },
+      {
+         duration: 300,
+         property: "y",
+         start: "30vb",
+         end: "0px",
+         easing: "linear",
+      },
+      {
+         duration: 300,
+         property: "y",
+         start: "30vb",
+         end: "0px",
+         easing: "linear",
+      },
+   ],
+});
 
 /**
  * Converts [{text, value}] into Tweakpane options object {Text: value}
@@ -89,33 +117,7 @@ const MotionPlayground = () => {
    const scope = useRef(null);
    const cardsRef = useRef([]);
 
-   const [params, setParams] = useState({
-      mode: "individual",
-      stagger: 150,
-      motion: [
-         {
-            duration: 300,
-            property: "y",
-            start: "30vb",
-            end: '0px',
-            easing: "linear",
-         },
-         {
-            duration: 300,
-            property: "y",
-            start: "30vb",
-            end: '0px',
-            easing: "linear",
-         },
-         {
-            duration: 300,
-            property: "y",
-            start: "30vb",
-            end: '0px',
-            easing: "linear",
-         },
-      ],
-   });
+   const [params, setParams] = useState(getParamDefaults());
 
    /**
     * Disposes all controllers so we can rebuild the pane cleanly.
@@ -159,7 +161,10 @@ const MotionPlayground = () => {
       if (params.mode === "group") {
          const staggerController = pane.addBinding(params, "stagger", {
             label: "Stagger",
-            options: toOptionsObject([{ text: "None (0ms)", value: 0 }, ...DURATIONS]),
+            options: toOptionsObject([
+               { text: "None (0ms)", value: 0 },
+               ...DURATIONS,
+            ]),
          });
          controllersRef.current.push(staggerController);
          staggerController.on("change", (ev) => {
@@ -170,15 +175,15 @@ const MotionPlayground = () => {
       // Motion folders
       // If individual mode, create a folder for each motion
       // If group mode, create one folder that edits all motions
-      const motionsToBuild =
-         params.mode === "individual" ? params.motion : [params.motion[0]];
+      const motionsToBuild = params.mode === "individual"
+         ? params.motion
+         : [params.motion[0]];
 
       motionsToBuild.forEach((motion, index) => {
          const folder = pane.addFolder({
-            title:
-               params.mode === "individual"
-                  ? `Card ${index + 1} Motion`
-                  : `Motion Settings`,
+            title: params.mode === "individual"
+               ? `Card ${index + 1} Motion`
+               : `Motion Settings`,
          });
          controllersRef.current.push(folder);
 
@@ -189,7 +194,13 @@ const MotionPlayground = () => {
          });
          controllersRef.current.push(durationController);
          durationController.on("change", (ev) => {
-            setParams((p) => ({ ...p, motion: p.motion.map((m, i) => (i === index ? { ...m, duration: ev.value } : m)) }));
+            setParams((p) => ({
+               ...p,
+               motion: p.motion.map((
+                  m,
+                  i,
+               ) => (i === index ? { ...m, duration: ev.value } : m)),
+            }));
          });
 
          // Property
@@ -199,9 +210,16 @@ const MotionPlayground = () => {
          });
          controllersRef.current.push(propertyController);
          propertyController.on("change", (ev) => {
-            setParams((p) => ({ ...p, motion: p.motion.map((m, i) => (i === index ? { ...m, property: ev.value } : m)) }));
+            setParams((p) => ({
+               ...p,
+               motion: p.motion.map((
+                  m,
+                  i,
+               ) => (i === index ? { ...m, property: ev.value } : m)),
+            }));
             // Update start and end defaults
-            const defaults = PROPERTY_DEFAULTS[ev.value] ?? { start: motion.start, end: motion.end };
+            const defaults = PROPERTY_DEFAULTS[ev.value] ??
+               { start: motion.start, end: motion.end };
             setParams((p) => ({
                ...p,
                motion: p.motion.map((m, i) => (i === index
@@ -211,7 +229,8 @@ const MotionPlayground = () => {
                      start: defaults.start,
                      end: defaults.end,
                   }
-                  : m)),
+                  : m)
+               ),
             }));
          });
 
@@ -221,7 +240,13 @@ const MotionPlayground = () => {
          });
          controllersRef.current.push(startController);
          startController.on("change", (ev) => {
-            setParams((p) => ({ ...p, motion: p.motion.map((m, i) => (i === index ? { ...m, start: ev.value } : m)) }));
+            setParams((p) => ({
+               ...p,
+               motion: p.motion.map((
+                  m,
+                  i,
+               ) => (i === index ? { ...m, start: ev.value } : m)),
+            }));
          });
 
          // End
@@ -230,7 +255,13 @@ const MotionPlayground = () => {
          });
          controllersRef.current.push(endController);
          endController.on("change", (ev) => {
-            setParams((p) => ({ ...p, motion: p.motion.map((m, i) => (i === index ? { ...m, end: ev.value } : m)) }));
+            setParams((p) => ({
+               ...p,
+               motion: p.motion.map((
+                  m,
+                  i,
+               ) => (i === index ? { ...m, end: ev.value } : m)),
+            }));
          });
 
          // Easing
@@ -240,7 +271,13 @@ const MotionPlayground = () => {
          });
          controllersRef.current.push(easingController);
          easingController.on("change", (ev) => {
-            setParams((p) => ({ ...p, motion: p.motion.map((m, i) => (i === index ? { ...m, easing: ev.value } : m)) }));
+            setParams((p) => ({
+               ...p,
+               motion: p.motion.map((
+                  m,
+                  i,
+               ) => (i === index ? { ...m, easing: ev.value } : m)),
+            }));
          });
       });
 
@@ -249,12 +286,17 @@ const MotionPlayground = () => {
       });
       controllersRef.current.push(playBtn);
       playBtn.on("click", handlePlayClick);
+
+      // const resetBtn = pane.addButton({
+      //    title: "Reset Motion",
+      // });
+      // controllersRef.current.push(resetBtn);
+      // resetBtn.on("click", handleResetClick);
    };
 
    const runMotion = () => {
-      scope.current = createScope({ root }).add( self => {
-
-         self.add('playIndividual', () => {
+      scope.current = createScope({ root }).add((self) => {
+         self.add("playIndividual", () => {
             params.motion.forEach((motion, index) => {
                const card = cardsRef.current[index];
                if (!card) return;
@@ -264,33 +306,47 @@ const MotionPlayground = () => {
                   duration: motion.duration,
                   ease: motion.easing,
                   autoplay: false,
-               })
+               });
                anim.play();
             });
          });
 
-         self.add('playGroup', () => {
+         self.add("playGroup", () => {
             const anim = animate(cardsRef.current, {
-               [params.motion[0].property]: [params.motion[0].start, params.motion[0].end],
+               [params.motion[0].property]: [
+                  params.motion[0].start,
+                  params.motion[0].end,
+               ],
                duration: params.motion[0].duration,
                ease: params.motion[0].easing,
                delay: stagger(params.stagger),
                autoplay: false,
-            })
+            });
             anim.play();
          });
       });
 
       // Properly cleanup all anime.js instances declared inside the scope
-      return () => scope.current.revert()
-   }
+      return () => scope.current.revert();
+   };
 
    const handlePlayClick = () => {
-      if (params.mode === 'individual') {
+      if (params.mode === "individual") {
          scope.current.methods.playIndividual();
       } else {
          scope.current.methods.playGroup();
       }
+   };
+
+   const handleResetClick = () => {
+      const next = getParamDefaults()
+      setParams(next)
+
+      // Rebuild pane to rebind controllers to fresh objects
+      clearControllers()
+      paneRef.current?.dispose?.()
+      paneRef.current = new Pane({ container: paneContainerRef.current, title: 'Motion Controls' })
+      buildPane()
    }
 
    // Create Pane once
@@ -312,7 +368,12 @@ const MotionPlayground = () => {
    // Rebuild pane when mode changes so conditional bindings update
    useEffect(() => {
       buildPane();
-   }, [params.mode, params.motion[0].property, params.motion[1]?.property, params.motion[2]?.property]);
+   }, [
+      params.mode,
+      params.motion[0].property,
+      params.motion[1]?.property,
+      params.motion[2]?.property,
+   ]);
 
    useEffect(() => {
       runMotion();
@@ -320,11 +381,22 @@ const MotionPlayground = () => {
 
    return (
       <>
-         <div className="tweakpane" id="tweakpane-container" ref={paneContainerRef} />
-         <section className="motion-playground container__content--main" ref={root}>
+         <div
+            className="tweakpane"
+            id="tweakpane-container"
+            ref={paneContainerRef}
+         />
+         <section
+            className="motion-playground container__content--main"
+            ref={root}
+         >
             <div className="motion-playground__content">
                {Array.from({ length: CARDS }).map((_, i) => (
-                  <article className="motion-playground__card" key={i} ref={(el) => (cardsRef.current[i] = el)}>
+                  <article
+                     className="motion-playground__card"
+                     key={i}
+                     ref={(el) => (cardsRef.current[i] = el)}
+                  >
                   </article>
                ))}
             </div>
