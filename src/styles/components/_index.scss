@@ -15,5 +15,6 @@
 }
 
 @layer molecules {
+   @layer motion-playground { @include meta.load-css('@styles/components/molecules/MotionPlayground.style.scss'); }
    @layer sandbox { @include meta.load-css('@styles/components/molecules/Sandbox.style.scss'); }
 }

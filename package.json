@@ -27,7 +27,9 @@
     "@radix-ui/react-separator": "^1.1.2",
     "@radix-ui/react-slot": "^1.1.2",
     "@radix-ui/react-tooltip": "^1.1.8",
+    "animejs": "^4.2.2",
     "classnames": "^2.5.1",
-    "sass-embedded": "^1.85.1"
+    "sass-embedded": "^1.85.1",
+    "tweakpane": "^4.0.5"
   }
 }

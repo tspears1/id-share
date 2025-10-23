@@ -1,0 +1,14 @@
+.tweakpane {
+   inline-size: var(--tweakpane-inline-size, 20rem);
+   inset-block-start: var(--tweakpane-inset-block-start, auto);
+   inset-block-end: var(--tweakpane-inset-block-end, 0.5rem);
+   inset-inline-start: var(--tweakpane-inset-inline-start, auto);
+   inset-inline-end: var(--tweakpane-inset-inline-end, 0.5rem);
+   padding-block: 0 !important;
+   position: fixed;
+   z-index: 9999;
+
+   & > * {
+      border: 2px solid hsl(0 100% 100%);
+   }
+}

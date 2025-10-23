@@ -93,11 +93,15 @@ blockquote {
     padding: 0 0.5em;
   }
 
-  :where(:not(cite, cite *)) {
+  :where(:not(cite, cite *, small, small *)) {
     font-size: var(--heading-3);
     font-weight: var(--font-weight-black);
     line-height: var(--leading-snug);
     max-inline-size: 45ch;
+  }
+
+  :where(small) {
+    font-size: var(--heading-5);
   }
 
   :where(cite) {

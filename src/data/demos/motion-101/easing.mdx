@@ -39,15 +39,30 @@ Let's talk about `bezier-curves` first.
 
 ### Bezier Curves
 
-A bezier curve is a mathematical function that maps normalized time to normalized progress, shaping speed and acceleration across a set duration.
+A bezier curve, when applied to motion, is a mathematical function that maps normalized time to normalized progress, shaping speed and acceleration across a set duration.
 
 Put simply: it tells you how motion unfolds over time.
 When a bezier curve has a single control point it's called a `quadratic` curve.
 When it has two control points it's called a `cubic` curve. These are the most common types of bezier curves used in motion design.
 
+<div style="text-align: center; display: grid; grid-template-columns: repeat(2, 1fr); gap: 4vw;">
+   <figure style="aspect-ratio: 1; block-size: 100%; inline-size: 100%; background: white;">
+      <img style="block-size: 100%; inline-size: 100%; object-fit: contain;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/B%C3%A9zier_2_big.gif/250px-B%C3%A9zier_2_big.gif" alt="Quadratic Bezier Curve" />
+      <figcaption>Quadratic Bezier Curve</figcaption>
+   </figure>
+   <figure style="aspect-ratio: 1; block-size: 100%; inline-size: 100%; background: white;">
+      <img style="block-size: 100%; inline-size: 100%; object-fit: contain;" src="https://developer.mozilla.org/en-US/docs/Web/CSS/easing-function/cubic-bezier/cubic-bezier.svg" alt="Cubic Bezier Curve" />
+      <figcaption>Cubic Bezier Curve</figcaption>
+   </figure>
+</div>
+
+> <small>Bezier curves are a **beautiful abstraction** for describing curves. The most commonly used form, _cubic bezier curves_, reduce the problem of describing and storing a curve down to storing 4 coordinates.</small>
+> <cite>-- Jamie Wong</cite>
+
 - <a href="https://easings.net/" target="_blank">Easing Functions</a>
 - <a href="https://joshcollinsworth.com/demos/easing" target="_blank">Easing Playground</a>
 - <a href="https://jamie-wong.com/post/bezier-curves/" target="_blank">Bezier Curves</a>
+- <a href="https://animejs.com/easing-editor/" target="_blank">Easing Editor by AnimeJS</a>
 
 ### Linear Function
 The linear function is a fairly new CSS function (full support JUST happened in 2023) that provides a simple way to create linear easing.
