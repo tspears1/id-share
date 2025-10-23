@@ -1,8 +1,9 @@
 .motion-playground {
    background: var(--color-slate-900);
    block-size: 80vb;
-   border: var(--border-size-2) solid var(--color-slate-500);
+   border: var(--border-size-3) solid var(--color-teal-500);
    display: grid;
+   overflow: clip;
 
    &__content {
       display: grid;
